@@ -11,6 +11,9 @@ type Props = {
   seller: string;
   originalPrice: number;
   tag: string | null;
+  showSeller?: boolean;
+  cardHeight?: string;
+  fullWidthButton?: boolean;
 };
 
 export default function ProductCard({
@@ -23,6 +26,9 @@ export default function ProductCard({
   originalPrice,
   tag,
   rating,
+  showSeller = true,
+  cardHeight = 'h-[465.38px]',
+  fullWidthButton = false,
 }: Props) {
   const getTagBgColor = () => {
     if (!tag) return '';
@@ -35,7 +41,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className="w-[298px] h-[465.38px] rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins">
+    <div className={`w-[298px] ${cardHeight} rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins`}>
       {tag && (
         <div
           className={`absolute flex items-center justify-center rounded-tl-[15px] rounded-tr-0 rounded-br-[20px] rounded-bl-0 top-[-1px] left-[-1px] h-[31px] ${getTagBgColor()} text-white px-4 py-0.5 text-xs font-medium`}
@@ -43,7 +49,7 @@ export default function ProductCard({
           {tag}
         </div>
       )}
-      <div className="w-[296px] h-[271px] mx-auto flex items-center justify-center">
+      <div className="w-[296px] h-[278px] mx-auto flex items-center justify-center">
         <Link to={`/product/${id}`} className="w-[246px] h-[246px] flex items-center justify-center">
           {image ? (
             <img src={image} alt={title} className="max-w-full max-h-full object-contain" />
@@ -67,10 +73,10 @@ export default function ProductCard({
           </svg>
           <span className="text-xs text-gray-500 ml-1.5">{`(${rating})`}</span>
         </div>
-        <span className="text-xs text-gray-500 mb-2.5">By <span className='text-[#F53E32]'>{seller}</span></span>
+        {showSeller && <span className="text-xs text-gray-500 mb-2.5">By <span className='text-[#F53E32]'>{seller}</span></span>}
         <div className="flex-grow" />
-        <div className="flex justify-between items-center">
-          <div>
+        <div className={`flex ${fullWidthButton ? 'flex-col' : 'justify-between'} items-center mt-auto`}>
+          <div className={`${fullWidthButton ? 'w-full text-start' : ''}`}>
             <span className="text-lg font-semibold text-[#3BB77E]">
               ₹{price.toFixed(2)}
             </span>
@@ -78,9 +84,15 @@ export default function ProductCard({
               ₹{originalPrice.toFixed(2)}
             </span>
           </div>
-          <AddToCartButton
-            item={{ id, name: title, price, qty: 1, image }}
-          />
+          <div className={`${fullWidthButton ? 'w-full mt-4' : ''}`}>
+            {fullWidthButton ? (
+               <button className="w-full bg-[#F53E32] hover:bg-[#D8372C] text-white rounded-md py-2 px-4 font-bold cursor-pointer">Add To Cart</button>
+            ) : (
+              <AddToCartButton
+                item={{ id, name: title, price, qty: 1, image }}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

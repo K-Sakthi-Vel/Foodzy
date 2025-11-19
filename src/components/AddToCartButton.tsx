@@ -2,7 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/slices/cartSlice';
 import type { CartItem } from '../store/slices/cartSlice';
-
+import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import Cart from '../assets/add-cart.png'
 type Props = { item: CartItem };
 
 export default function AddToCartButton({ item }: Props) {
@@ -14,9 +15,9 @@ export default function AddToCartButton({ item }: Props) {
   return (
     <button
       onClick={onAdd}
-      className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+      className="flex items-center justify-center gap-2 w-[84.91px] h-[36px] bg-[#F53E32] text-white rounded-[4px] text-sm"
     >
-      Add to cart
+      <img src={Cart} alt='cart' className='h-[14px] w-[14px]'/> Add
     </button>
   );
 }

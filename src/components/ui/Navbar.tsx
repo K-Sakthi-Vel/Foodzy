@@ -7,7 +7,7 @@ export default function Navbar() {
     <header className="bg-white navbar-shadow h-[55px] w-full flex items-center justify-center">
       <div className="container w-[1296px] mx-auto flex items-center justify-between h-full">
         {/* Hamburger Menu Icon */}
-        <div className="p-2 cursor-pointer border-2 border-gray-500 ">
+        <div className="p-2 cursor-pointer border-2 border-gray-300 rounded">
           <img className='h-[15px] w-[16px]' src={Menu} alt='logo'/>
         </div>
 

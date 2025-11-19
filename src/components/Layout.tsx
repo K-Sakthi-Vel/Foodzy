@@ -10,7 +10,7 @@ export default function Layout({ children }: Props) {
     <div className="min-h-screen min-w-screen flex flex-col">
       <Navbar />
       <TopHeader />
-      <main className="flex-1 container mx-auto px-4 py-6">{children}</main>
+      <main className="flex-1 container">{children}</main>
       <Footer />
     </div>
   );

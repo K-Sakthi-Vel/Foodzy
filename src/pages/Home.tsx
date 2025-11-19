@@ -1,6 +1,8 @@
 // file: src/pages/Home.tsx
 import React, { useEffect, useState } from 'react';
+import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
+import PromotionalBanners from '../components/PromotionalBanners';
 
 type Product = { id: string; title: string; price: number; image?: string };
 
@@ -20,12 +22,8 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-6">Featured dishes</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {items.map((p) => (
-          <ProductCard key={p.id} id={p.id} title={p.title} price={p.price} image={p.image} />
-        ))}
-      </div>
+      <Hero />
+      <PromotionalBanners/>
     </div>
   );
 }

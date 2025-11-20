@@ -1,5 +1,6 @@
 // file: src/pages/Home.tsx
 import DailyBestSells from '../components/DailyBestSells';
+import DealsOfTheDay from '../components/DealsOfTheDay';
 import Hero from '../components/Hero';
 import PopularProducts from '../components/PopularProducts';
 import PromotionalBanners from '../components/PromotionalBanners';
@@ -11,6 +12,7 @@ export default function Home() {
       <PromotionalBanners />
       <PopularProducts />
       <DailyBestSells />
+      <DealsOfTheDay />
     </div>
   );
 }

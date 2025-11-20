@@ -42,7 +42,7 @@ const Hero = () => {
             className="flex-1 outline-none ml-3 text-[15px] text-gray-600"
           />
 
-          <button className="h-[64px] bg-[#34A853] hover:bg-green-600 transition text-white px-8 py-2 rounded-full font-medium">
+          <button className="h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
             Subscribe
           </button>
         </div>

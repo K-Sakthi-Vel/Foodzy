@@ -12,7 +12,7 @@ const ProductDetail: React.FC = () => {
           <p className="text-[14px] text-[#FFFFFF]">Home - Product</p>
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-8 w-[1310px] mt-10">
+      <div className="grid grid-cols-12 gap-8 w-[1310px] mt-20">
         <div className="col-span-3">
           <FilterOptions />
         </div>

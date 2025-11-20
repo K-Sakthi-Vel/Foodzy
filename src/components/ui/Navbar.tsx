@@ -4,8 +4,11 @@ import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import Menu from '../../assets/menu.png'
 export default function Navbar() {
   return (
-    <header className="bg-white navbar-shadow h-[55px] w-full flex items-center justify-center">
-      <div className="container w-[1296px] mx-auto flex items-center justify-between h-full">
+    <header 
+  className="bg-white h-[55px] w-full flex items-center justify-center 
+             shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] sticky top-0 z-10"
+>
+      <div className="container w-[1296px] mx-auto flex items-center justify-between h-full ">
         {/* Hamburger Menu Icon */}
         <div className="p-2 ml-5 cursor-pointer border-2 border-gray-300 rounded">
           <img className='h-[15px] w-[16px]' src={Menu} alt='logo'/>

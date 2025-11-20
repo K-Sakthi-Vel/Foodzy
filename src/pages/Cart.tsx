@@ -247,7 +247,7 @@ export default function CartPage() {
             </div>
           </div>
           <div className="text-right mt-6">
-            <button className="bg-red-500 text-white py-3 px-8 rounded">Place Order</button>
+            <button className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer text-white py-3 px-8 rounded">Place Order</button>
           </div>
         </div>
       </div>

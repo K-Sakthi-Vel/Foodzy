@@ -4,6 +4,8 @@ import DealsOfTheDay from '../components/DealsOfTheDay';
 import Hero from '../components/Hero';
 import PopularProducts from '../components/PopularProducts';
 import PromotionalBanners from '../components/PromotionalBanners';
+import SubscribeBanner from '../components/SubscribeBanner';
+import OurPromises from '../components/OurPromises';
 
 export default function Home() {
   return (
@@ -13,6 +15,8 @@ export default function Home() {
       <PopularProducts />
       <DailyBestSells />
       <DealsOfTheDay />
+      <SubscribeBanner />
+      <OurPromises/>
     </div>
   );
 }

@@ -51,10 +51,10 @@ const Hero = () => {
 
       {/* --- Positioned Images (yours preserved) --- */}
       <img className="h-[400px] w-[400px] absolute bottom-2 right-[-30px] rotate-2" src={Leaf} alt="leaf" />
-      <img className="h-[82px] w-[82px] absolute top-0 left-0" src={Img1} alt="img1" />
-      <img className="h-[82px] w-[100px] absolute bottom-1 left-1" src={Img2} alt="img2" />
-      <img className="h-[82px] w-[82px] absolute top-0 left-[40%]" src={Img3} alt="img3" />
-      <img className="h-[82px] w-[82px] absolute bottom-20 left-[50%]" src={Img4} alt="img4" />
+      <img className="h-[50px] w-[50px] opacity-[50%] absolute top-0 left-0" src={Img1} alt="img1" />
+      <img className="h-[100px] w-[100px] absolute bottom-1 left-1" src={Img2} alt="img2" />
+      <img className="h-[80px] w-[100px] absolute top-0 left-[40%]" src={Img3} alt="img3" />
+      <img className="h-[100px] w-[100px] absolute bottom-20 left-[50%]" src={Img4} alt="img4" />
     </div>
   );
 };

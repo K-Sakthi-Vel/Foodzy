@@ -7,13 +7,13 @@ export default function Navbar() {
     <header className="bg-white navbar-shadow h-[55px] w-full flex items-center justify-center">
       <div className="container w-[1296px] mx-auto flex items-center justify-between h-full">
         {/* Hamburger Menu Icon */}
-        <div className="p-2 cursor-pointer border-2 border-gray-300 rounded">
+        <div className="p-2 ml-5 cursor-pointer border-2 border-gray-300 rounded">
           <img className='h-[15px] w-[16px]' src={Menu} alt='logo'/>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex space-x-6 text-sm font-medium">
-          <Link to="/" className="text-black-700 hover:text-gray-900 text-decoration-none">
+        <nav className="flex space-x-6 ml-10 text-sm font-medium ">
+          <Link to="/" className="text-gray-700 hover:text-gray-900">
             Home
           </Link>
           <Link to="/category" className="text-gray-700 hover:text-gray-900 flex items-center">

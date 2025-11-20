@@ -11,7 +11,7 @@ export default function TopHeader() {
     <div className="bg-white h-[86px] w-full flex items-center justify-center header-bottom-border">
       <div className="container w-[1296px] mx-auto flex items-center justify-between">
           {/* Logo Section */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center">
             {/* Placeholder for Logo Image */}
             <img className='h-[82px] w-[82px]' src={Logo} alt='logo'/>
             <div>
@@ -39,18 +39,18 @@ export default function TopHeader() {
         </div>
 
         {/* Account, Wishlist, Cart Icons/Links */}
-        <div className="flex items-center space-x-6 text-gray-600">
+        <div className="flex items-center space-x-6 text-[#000000]">
           <Link to="/account" className="flex flex items-center hover:text-gray-900">
             <UserIcon className="w-5 h-5 mr-1" /> {/* Heroicon */}
-            <span className="text-xs">Account</span>
+            <span className="text-[15px]"  style={{fontFamily:'Poppins'}}>Account</span>
           </Link>
           <Link to="/wishlist" className="flex flex items-center hover:text-gray-900">
             <HeartIcon className="w-5 h-5 mr-1" /> {/* Heroicon */}
-            <span className="text-xs">Wishlist</span>
+            <span className="text-[15px]"  style={{fontFamily:'Poppins'}}>Wishlist</span>
           </Link>
           <Link to="/cart" className="flex flex items-center relative hover:text-gray-900">
             <ShoppingCartIcon className="w-5 h-5 mr-1" /> {/* Heroicon */}
-            <span className="text-xs">Cart</span>
+            <span className="text-[15px]" style={{fontFamily:'Poppins'}}>Cart</span>
             {count > 0 && (
               <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                 {count}

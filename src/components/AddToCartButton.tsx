@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/slices/cartSlice';
 import type { CartItem } from '../store/slices/cartSlice';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Cart from '../assets/add-cart.png'
 type Props = { item: CartItem };
 

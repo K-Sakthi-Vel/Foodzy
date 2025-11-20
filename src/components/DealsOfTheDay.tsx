@@ -1,6 +1,6 @@
 import React from 'react';
 import dealsData from '../data/dealsOfTheDay.json';
-
+import Cart from '../assets/add-cart.png'
 const DealsOfTheDay: React.FC = () => {
   return (
     <section className="w-[100vw] h-[545px] flex justify-center mx-auto mt-10">
@@ -41,8 +41,8 @@ const DealsOfTheDay: React.FC = () => {
                     <span className="text-xl font-bold text-green-500">${deal.price.toFixed(2)}</span>
                     <span className="text-gray-400 line-through ml-2">${deal.original_price.toFixed(2)}</span>
                   </div>
-                  <button className="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition-colors">
-                    Add
+                  <button className="flex items-center justify-center gap-1 cursor-pointer bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition-colors">
+                    <img src={Cart} alt='cart' className='h-[14px] w-[14px]'/>Add
                   </button>
                 </div>
               </div>

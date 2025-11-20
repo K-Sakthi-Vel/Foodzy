@@ -105,14 +105,14 @@ export default function CartPage() {
               <div className="flex flex-col text-[15px] text-[#2B2B2D]">
                 <p>Free Shipping </p>
                 <label htmlFor="free-shipping" className="flex items-center gap-1">
-                  <input type="radio" id="free-shipping" name="shipping" className="h-4 w-4 text-red-500 border-gray-300 focus:ring-red-500" checked />
+                  <input type="radio" id="free-shipping" name="shipping" className="custom-radio" defaultChecked />
                   <span className="text-[#7A7A7A]">Rate - $0.00</span>
                 </label>
               </div>
               <div className="flex flex-col text-[15px] text-[#2B2B2D]">
                 <p>Flat Rate </p>
                 <label htmlFor="free-shipping" className="flex items-center gap-1">
-                  <input type="radio" id="free-shipping" name="shipping" className="h-4 w-4 text-red-500 border-gray-300 focus:ring-red-500" checked />
+                  <input type="radio" id="flat-rate" name="shipping" className="custom-radio" />
                   <span className="text-[#7A7A7A]">Rate - $5.00</span>
                 </label>
               </div>
@@ -131,15 +131,15 @@ export default function CartPage() {
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>
               <div className="flex items-center mb-2">
-                <input type="radio" id="cash" name="payment" className="h-4 w-4 text-red-500 border-gray-300" checked />
+                <input type="radio" id="cash" name="payment" className="custom-radio" defaultChecked/>
                 <label htmlFor="cash" className="ml-2">Cash On Delivery</label>
               </div>
               <div className="flex items-center mb-2">
-                <input type="radio" id="upi" name="payment" className="h-4 w-4 text-red-500 border-gray-300" />
+                <input type="radio" id="upi" name="payment" className="custom-radio" />
                 <label htmlFor="upi" className="ml-2">UPI</label>
               </div>
               <div className="flex items-center">
-                <input type="radio" id="bank" name="payment" className="h-4 w-4 text-red-500 border-gray-300" />
+                <input type="radio" id="bank" name="payment" className="custom-radio" />
                 <label htmlFor="bank" className="ml-2">Bank Transfer</label>
               </div>
             </div>

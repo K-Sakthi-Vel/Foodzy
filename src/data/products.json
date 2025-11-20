@@ -8,7 +8,17 @@
     "originalPrice": 2.50,
     "discountedPrice": 1.99,
     "tag": "New",
-    "image": "apple.png"
+    "image": "apple.png",
+    "description": "A crisp and juicy organic apple, sourced from the finest orchards. Perfect for a healthy snack.",
+    "reviews": 75,
+    "brand": "ESTA BETTERU CO",
+    "flavour": "Sweet",
+    "dietType": "Vegetarian",
+    "weight": "1kg",
+    "speciality": "Gluten Free, Sugar Free",
+    "info": "Egg Free, Allergen-Free",
+    "items": 1,
+    "sizes": ["500g", "1kg", "2kg"]
   },
   {
     "id": 2,
@@ -19,7 +29,17 @@
     "originalPrice": 6.99,
     "discountedPrice": 5.99,
     "tag": "Hot",
-    "image": "coffee.jpg"
+    "image": "coffee.jpg",
+    "description": "Premium coffee beans, roasted to perfection to deliver a rich and aromatic coffee experience.",
+    "reviews": 120,
+    "brand": "StarKist",
+    "flavour": "Rich",
+    "dietType": "N/A",
+    "weight": "250g",
+    "speciality": "Organic",
+    "info": "N/A",
+    "items": 1,
+    "sizes": ["250g", "500g", "1kg"]
   },
   {
     "id": 3,
@@ -30,7 +50,17 @@
     "originalPrice": 4.00,
     "discountedPrice": 3.49,
     "tag": "Sale",
-    "image": "coconut-flakes.jpg"
+    "image": "coconut-flakes.jpg",
+    "description": "Crunchy and delicious coconut flakes, perfect for baking or as a topping for your favorite dishes.",
+    "reviews": 90,
+    "brand": "Old El Paso",
+    "flavour": "Salty",
+    "dietType": "Vegan",
+    "weight": "200g",
+    "speciality": "Low Sodium",
+    "info": "N/A",
+    "items": 1,
+    "sizes": ["200g", "400g"]
   },
   {
     "id": 4,
@@ -41,7 +71,17 @@
     "originalPrice": 5.00,
     "discountedPrice": 4.50,
     "tag": "Hot",
-    "image": "latte.jpg"
+    "image": "latte.jpg",
+    "description": "A creamy and smooth latte, made with the finest espresso and steamed milk.",
+    "reviews": 250,
+    "brand": "StarKist",
+    "flavour": "Caramel",
+    "dietType": "N/A",
+    "weight": "300ml",
+    "speciality": "N/A",
+    "info": "Contains caffeine",
+    "items": 1,
+    "sizes": ["300ml", "500ml"]
   },
   {
     "id": 5,
@@ -52,7 +92,17 @@
     "originalPrice": 1.20,
     "discountedPrice": 0.99,
     "tag": null,
-    "image": "lemon.png"
+    "image": "lemon.png",
+    "description": "Zesty and refreshing lemons, perfect for adding a citrusy kick to your drinks and dishes.",
+    "reviews": 60,
+    "brand": "NestFood",
+    "flavour": "Sour",
+    "dietType": "Vegetarian",
+    "weight": "500g",
+    "speciality": "Organic",
+    "info": "N/A",
+    "items": 1,
+    "sizes": ["500g", "1kg"]
   },
   {
     "id": 6,
@@ -63,7 +113,17 @@
     "originalPrice": 15.00,
     "discountedPrice": 12.99,
     "tag": "Save 13%",
-    "image": "macadamia.png"
+    "image": "macadamia.png",
+    "description": "A delightful mix of macadamia nuts, perfect for a healthy and satisfying snack.",
+    "reviews": 150,
+    "brand": "Tyson",
+    "flavour": "Nutty",
+    "dietType": "Vegan",
+    "weight": "200g",
+    "speciality": "N/A",
+    "info": "Contains nuts",
+    "items": 1,
+    "sizes": ["200g", "500g"]
   },
   {
     "id": 7,
@@ -74,7 +134,17 @@
     "originalPrice": 18.00,
     "discountedPrice": 15.00,
     "tag": "New",
-    "image": "moisturer.jpg"
+    "image": "moisturer.jpg",
+    "description": "A luxurious moisturizer that leaves your skin feeling soft, smooth, and hydrated.",
+    "reviews": 85,
+    "brand": "Stouffer",
+    "flavour": "N/A",
+    "dietType": "N/A",
+    "weight": "150ml",
+    "speciality": "For sensitive skin",
+    "info": "Paraben-free",
+    "items": 1,
+    "sizes": ["150ml", "300ml"]
   },
   {
     "id": 8,
@@ -85,7 +155,17 @@
     "originalPrice": 7.50,
     "discountedPrice": 6.50,
     "tag": null,
-    "image": "peanut-butter.jpg"
+    "image": "peanut-butter.jpg",
+    "description": "Creamy and delicious peanut butter, perfect for sandwiches, smoothies, or just by the spoonful.",
+    "reviews": 200,
+    "brand": "Tyson",
+    "flavour": "Vanilla",
+    "dietType": "Vegetarian",
+    "weight": "500g",
+    "speciality": "High in protein",
+    "info": "N/A",
+    "items": 1,
+    "sizes": ["500g", "1kg"]
   },
   {
     "id": 9,
@@ -96,7 +176,17 @@
     "originalPrice": 12.00,
     "discountedPrice": 10.00,
     "tag": "Sale",
-    "image": "pistachio.jpg"
+    "image": "pistachio.jpg",
+    "description": "Crunchy and flavorful pistachios, a healthy and delicious snack for any time of day.",
+    "reviews": 300,
+    "brand": "Tyson",
+    "flavour": "Salty",
+    "dietType": "Vegan",
+    "weight": "400g",
+    "speciality": "N/A",
+    "info": "Contains nuts",
+    "items": 1,
+    "sizes": ["200g", "400g", "800g"]
   },
   {
     "id": 10,
@@ -107,6 +197,16 @@
     "originalPrice": 8.00,
     "discountedPrice": 7.25,
     "tag": "Save 10%",
-    "image": "watermelon.png"
+    "image": "watermelon.png",
+    "description": "A juicy and refreshing watermelon, perfect for a hot summer day.",
+    "reviews": 180,
+    "brand": "NestFood",
+    "flavour": "Sweet",
+    "dietType": "Vegetarian",
+    "weight": "5kg",
+    "speciality": "Organic",
+    "info": "N/A",
+    "items": 1,
+    "sizes": ["3kg", "5kg", "7kg"]
   }
 ]

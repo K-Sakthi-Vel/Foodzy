@@ -11,15 +11,16 @@ export default function TopHeader() {
     <div className="bg-white h-[86px] w-full flex items-center justify-center header-bottom-border">
       <div className="container w-[1296px] mx-auto flex items-center justify-between">
         {/* Logo Section */}
-        <div className="flex items-center">
-          {/* Placeholder for Logo Image */}
-          <img className='h-[82px] w-[82px]' src={Logo} alt='logo' />
-          <div>
-            <h2 className='text-2xl font-extrabold text-black'>Foodzy</h2>
-            <span className="text-gray-500 font-normal">A Treasure of Tastes</span>
+        <Link to="/">
+          <div className="flex items-center">
+            {/* Placeholder for Logo Image */}
+            <img className='h-[82px] w-[82px]' src={Logo} alt='logo' />
+            <div>
+              <h2 className='text-2xl font-extrabold text-black'>Foodzy</h2>
+              <span className="text-gray-500 font-normal">A Treasure of Tastes</span>
+            </div>
           </div>
-
-        </div>
+        </Link>
 
         {/* Search Bar Section */}
         <div className="flex items-stretch w-[600px] border border-gray-300 rounded-md overflow-hidden">
@@ -61,11 +62,11 @@ export default function TopHeader() {
 
         {/* Account, Wishlist, Cart Icons/Links */}
         <div className="flex items-center space-x-6 text-[#000000]">
-          <Link to="/account" className="flex flex items-center hover:text-gray-900">
+          <Link to="/" className="flex flex items-center hover:text-gray-900">
             <UserIcon className="w-5 h-5 mr-1" /> {/* Heroicon */}
             <span className="text-[15px]" style={{ fontFamily: 'Poppins' }}>Account</span>
           </Link>
-          <Link to="/wishlist" className="flex flex items-center hover:text-gray-900">
+          <Link to="/" className="flex flex items-center hover:text-gray-900">
             <HeartIcon className="w-5 h-5 mr-1" /> {/* Heroicon */}
             <span className="text-[15px]" style={{ fontFamily: 'Poppins' }}>Wishlist</span>
           </Link>

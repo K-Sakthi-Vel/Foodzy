@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import FilterOptions from '../components/FilterOptions';
 import ProductInfo from '../components/ProductInfo';
 import ProductDetailPopularProducts from '../components/ProductDetailPopularProducts';
+import products from '../data/products.json';
 
 const ProductDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const product = products.find((p) => p.id === Number(id));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
+
   return (
     <div className="flex flex-col items-center w-[100vw]">
       <div className="flex items-center justify-center bg-[#F53E32] h-[70px] w-full">
@@ -17,7 +26,7 @@ const ProductDetail: React.FC = () => {
           <FilterOptions />
         </div>
         <div className="w-[996px] col-span-9">
-          <ProductInfo />
+          <ProductInfo product={product} />
         </div>
       </div>
       <ProductDetailPopularProducts />

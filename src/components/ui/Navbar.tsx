@@ -19,19 +19,19 @@ export default function Navbar() {
           <Link to="/" className="text-gray-700 hover:text-gray-900">
             Home
           </Link>
-          <Link to="/category" className="text-gray-700 hover:text-gray-900 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
             Category <span className="ml-1 text-md"><ChevronDownIcon  className="w-3 h-3 mr-1"/></span>
           </Link>
-          <Link to="/products" className="text-gray-700 hover:text-gray-900 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
             Products <span className="ml-1 text-xs"><ChevronDownIcon  className="w-3 h-3 mr-1"/></span>
           </Link>
-          <Link to="/pages" className="text-gray-700 hover:text-gray-900 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
             Pages <span className="ml-1 text-xs"><ChevronDownIcon  className="w-3 h-3 mr-1"/></span>
           </Link>
-          <Link to="/blog" className="text-gray-700 hover:text-gray-900 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
             Blog <span className="ml-1 text-xs"><ChevronDownIcon  className="w-3 h-3 mr-1"/></span>
           </Link>
-          <Link to="/elements" className="text-gray-700 hover:text-gray-900 flex items-center">
+          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
             Elements <span className="ml-1 text-xs"><ChevronDownIcon  className="w-3 h-3 mr-1"/></span>
           </Link>
         </nav>

@@ -9,12 +9,8 @@ const FilterOptions: React.FC = () => {
                     <label className="flex items-center">
                         <input
                             type="checkbox"
-                            className="mr-2 border rounded w-4 h-4 cursor-pointer"
-                            style={{
-                                borderColor: '#DDDDDD',
-                                accentColor: '#3b82f6', // Key property for color
-                                borderWidth: '1px' // Optional, as 'border' class often covers this
-                            }}
+                            className="mr-2 border rounded w-4 h-4 cursor-pointer custom-checkbox"
+                            defaultChecked
                         />
                         Juice & Drinks
                     </label>
@@ -24,12 +20,7 @@ const FilterOptions: React.FC = () => {
                     <label className="flex items-center">
                         <input
                             type="checkbox"
-                            className="mr-2 border rounded w-4 h-4 cursor-pointer"
-                            style={{
-                                borderColor: '#DDDDDD',
-                                accentColor: '#3b82f6', // Key property for color
-                                borderWidth: '1px' // Optional, as 'border' class often covers this
-                            }}
+                            className="mr-2 border rounded w-4 h-4 cursor-pointer custom-checkbox"
                         />
                         Dairy & Milk
                     </label>
@@ -39,12 +30,7 @@ const FilterOptions: React.FC = () => {
                     <label className="flex items-center">
                         <input
                             type="checkbox"
-                            className="mr-2 border rounded w-4 h-4 cursor-pointer"
-                            style={{
-                                borderColor: '#DDDDDD',
-                                accentColor: '#3b82f6', // Key property for color
-                                borderWidth: '1px' // Optional, as 'border' class often covers this
-                            }}
+                            className="mr-2 border rounded w-4 h-4 cursor-pointer custom-checkbox"
                         />
                         Snack & Spice
                     </label>

@@ -40,7 +40,7 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-md font-semibold text-[16px] ${
+                className={`px-4 py-2 rounded-md font-semibold text-[16px] cursor-pointer ${
                   activeFilter === filter
                     ? 'text-green-700'
                     : 'text-gray-600'

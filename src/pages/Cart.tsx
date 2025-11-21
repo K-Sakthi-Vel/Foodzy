@@ -1,48 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import type { RootState } from '../store/store';
-import datesValuePack from '../assets/products/coconut-flakes.jpg';
-import honeySpicedNuts from '../assets/products/peanut-butter.jpg';
+import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
 import paymentCards from '../assets/payment-cards.png';
-
-const StarRating = ({ rating }: { rating: number }) => (
-  <div className="flex">
-    {[...Array(5)].map((_, i) => (
-      <svg
-        key={i}
-        className={`w-4 h-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-      >
-        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-      </svg>
-    ))}
-  </div>
-);
 
 export default function CartPage() {
   const items = useSelector((s: RootState) => s.cart.items);
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
-
-  // Mock data for display since it's not in the cart state
-  const displayItems = [
-    {
-      id: 1,
-      name: 'Coconut Flakes',
-      price: 120.25,
-      originalPrice: 123.25,
-      rating: 4,
-      image: datesValuePack,
-    },
-    {
-      id: 2,
-      name: 'Peanut Butter',
-      price: 120.25,
-      originalPrice: 123.25,
-      rating: 4,
-      image: honeySpicedNuts,
-    },
-  ];
+  const dispatch = useDispatch();
+  const deliveryCharges = 80.00;
 
   return (
     <div className="flex flex-col items-center mx-auto w-full">
@@ -56,34 +22,43 @@ export default function CartPage() {
         {/* Left Column */}
         <div className="w-[440px]">
           {/* Summary */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[416px] h-[414px] text-[14px] text-[#7A7A7A]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[416px] min-h-[414px] text-[14px] text-[#7A7A7A]">
             <h2 className="text-[20px] font-semibold mb-4 text-left text-[#000000]">Summary</h2>
             <div className="flex justify-between ">
               <span>Sub-Total</span>
-              <span>$80.00</span>
+              <span>${total.toFixed(2)}</span>
             </div>
             <div className="flex justify-between mt-2">
               <span>Delivery Charges</span>
-              <span>$80.00</span>
+              <span>${deliveryCharges.toFixed(2)}</span>
             </div>
             <div className="border-t border-[#E9E9E9] my-4"></div>
             <div className="flex justify-between font-bold text-[16px] text-[#2B2B2D]" style={{ fontFamily: 'Manrope' }}>
               <span>Total Amount</span>
-              <span>$80.00</span>
+              <span>${(total + deliveryCharges).toFixed(2)}</span>
             </div>
-            <div className="py-5 my-4">
-              {displayItems.map((item) => (
-                <div key={item.id} className="flex items-center mt-4">
-                  <img src={item.image} alt={item.name} className="w-16 h-16 rounded" />
-                  <div className="ml-4 text-left">
-                    <h3 className="text-[15px] text-[#000000]" style={{
-                      fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
-                    }}>{item.name}</h3>
-                    <StarRating rating={item.rating} />
-                    <div>
-                      <span className="text-[#64B496] text-[16px] font-semibold">${item.price.toFixed(2)}</span>
-                      <span className="text-[#7A7A7A] text-[13px] line-through ml-2">${item.originalPrice.toFixed(2)}</span>
+            <div className="py-5">
+              {items.map((item) => (
+                <div key={item.id} className="flex items-center justify-between mt-4">
+                  <div className="flex items-center">
+                    <img src={item.image} alt={item.name} className="w-16 h-16 rounded" />
+                    <div className="ml-4 text-left">
+                      <h3 className="text-[15px] text-[#000000]" style={{
+                        fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
+                      }}>{item.name}</h3>
+                      <div>
+                        <span className="text-[#64B496] text-[16px] font-semibold">${item.price.toFixed(2)} x {item.qty}</span>
+                      </div>
                     </div>
+                  </div>
+                  <div className="flex w-[40%] flex-col justify-center items-center gap-1">
+                    <div className='flex w-full justify-between'>
+                      <button onClick={() => dispatch(updateQty({ id: item.id, qty: item.qty - 1 }))} disabled={item.qty <= 1} className="px-2 py-1 bg-gray-200 rounded">-</button>
+                      <span className="px-4 pt-1">{item.qty}</span>
+                      <button onClick={() => dispatch(updateQty({ id: item.id, qty: item.qty + 1 }))} className="px-2 py-1 bg-gray-200 rounded">+</button>
+                    </div>
+
+                    <button onClick={() => dispatch(removeItem(item.id))} className="px-2 w-full py-1 bg-red-500 text-white rounded">Remove</button>
                   </div>
                 </div>
               ))}
@@ -131,7 +106,7 @@ export default function CartPage() {
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>
               <div className="flex items-center mb-2">
-                <input type="radio" id="cash" name="payment" className="custom-radio" defaultChecked/>
+                <input type="radio" id="cash" name="payment" className="custom-radio" defaultChecked />
                 <label htmlFor="cash" className="ml-2">Cash On Delivery</label>
               </div>
               <div className="flex items-center mb-2">

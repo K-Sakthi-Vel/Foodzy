@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../store/slices/cartSlice';
 
 interface Product {
   id: number;
@@ -27,6 +29,21 @@ interface ProductInfoProps {
 }
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(
+      addItem({
+        id: String(product.id),
+        name: product.name,
+        price: product.discountedPrice,
+        qty: quantity,
+        image: `/src/assets/products/${product.image}`
+      })
+    );
+    alert('Added to cart'); // Replace with a toast notification later
+  };
     return (
         <div className="grid grid-cols-12 gap-8">
             <div className="col-span-6">
@@ -73,14 +90,14 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
                 </div>
                 <div className="flex items-center gap-1 mt-4 text-[#000000] h-[40px] mt-10">
                     <div className="flex items-center border border-[#E9E9E9] rounded-md h-[40px] w-[40px]">
-                        <span className="px-4">1</span>
+                        <span className="px-4">{quantity}</span>
                     </div>
                     <div className='flex flex-col gap-1 h-[40px]'>
-                        <button className="px-1 py-1 flex items-center justify-center border rounded-md  border border-[#E9E9E9]  h-[18px] w-[20px]">+</button>
-                        <button className="px-1 py-1 flex items-center justify-center border rounded-md  border border-[#E9E9E9]  h-[18px] w-[20px]">-</button>
+                        <button onClick={() => setQuantity(quantity + 1)} className="px-1 py-1 flex items-center justify-center border rounded-md  border border-[#E9E9E9]  h-[18px] w-[20px]">+</button>
+                        <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className="px-1 py-1 flex items-center justify-center border rounded-md  border border-[#E9E9E9]  h-[18px] w-[20px]">-</button>
                     </div>
 
-                    <button className="ml-4 bg-red-500 text-white px-6 py-2 rounded-md">Add To Cart</button>
+                    <button onClick={handleAddToCart} className="ml-4 bg-red-500 text-white px-6 py-2 rounded-md">Add To Cart</button>
                 </div>
             </div>
             <div className="col-span-12 mt-8 w-[996px] border border-1 border-[#E9E9E9] rounded-[5px] p-5">

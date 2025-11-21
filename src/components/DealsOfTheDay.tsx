@@ -9,9 +9,9 @@ const DealsOfTheDay: React.FC = () => {
           <h2 className="text-[32px] font-bold text-black" style={{ fontFamily: 'Quicksand' }}>
             Deals Of The Day
           </h2>
-          <a href="#" className="text-lg text-gray-600 hover:text-green-500">
+          <span className="text-lg text-gray-600 hover:text-green-500 cursor-pointer">
             All Deals {'>'}
-          </a>
+          </span>
         </div>
         <div className="grid grid-cols-4 gap-6">
           {dealsData.map((deal) => (

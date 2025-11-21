@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import type { RootState } from '../store/store';
+import type { RootState, AppDispatch } from '../store/store';
 import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
+import { sendOtp, verifyOtp } from '../store/slices/authSlice';
 import paymentCards from '../assets/payment-cards.png';
 
 export default function CartPage() {
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
+  const [emailError, setEmailError] = useState('');
+
   const items = useSelector((s: RootState) => s.cart.items);
+  const { otpSent, otpVerified, loading, error } = useSelector((s: RootState) => s.auth);
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const deliveryCharges = 80.00;
+
+  const handleSendOtp = () => {
+    if (validateEmail(email)) {
+      dispatch(sendOtp(email));
+      setEmailError('');
+    } else {
+      setEmailError('Please enter a valid email address.');
+    }
+  };
+
+  const handleVerifyOtp = () => {
+    dispatch(verifyOtp({ email, otp }));
+  };
+
+  const validateEmail = (email: string) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  };
 
   return (
     <div className="flex flex-col items-center mx-auto w-full">
@@ -142,13 +166,41 @@ export default function CartPage() {
             }}>Returning Customer</h2>
             <div className="mb-4  text-[#2B2B2D] text-[15px] ">
               <label className="block mb-2">Email Address</label>
-              <input type="email" placeholder="Enter your email address" className="w-full p-3 border border-gray-300 rounded" />
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                className="w-full p-3 border border-gray-300 rounded"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={otpSent}
+              />
+              {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
             </div>
-            <div className="mb-4  text-[#2B2B2D] text-[15px] ">
-              <label className="block mb-2">OTP</label>
-              <input type="text" placeholder="Enter your OTP" className="w-full p-3 border border-gray-300 rounded" />
-            </div>
-            <button className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">Verify</button>
+            {!otpSent ? (
+              <button onClick={handleSendOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
+                {loading ? 'Sending...' : 'Send OTP'}
+              </button>
+            ) : (
+              !otpVerified && (
+                <>
+                  <div className="mb-4  text-[#2B2B2D] text-[15px] ">
+                    <label className="block mb-2">OTP</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your OTP"
+                      className="w-full p-3 border border-gray-300 rounded"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                    />
+                  </div>
+                  <button onClick={handleVerifyOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
+                    {loading ? 'Verifying...' : 'Verify'}
+                  </button>
+                </>
+              )
+            )}
+            {otpVerified && <p className="text-green-500">Email verified successfully!</p>}
+            {error && <p className="text-red-500">{error}</p>}
           </div>
 
           {/* Billing Details */}

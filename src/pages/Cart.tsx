@@ -11,7 +11,7 @@ export default function CartPage() {
   const [emailError, setEmailError] = useState('');
 
   const items = useSelector((s: RootState) => s.cart.items);
-  const { otpSent, otpVerified, loading, error } = useSelector((s: RootState) => s.auth);
+  const { otpSent, otpVerified, loading, error, message } = useSelector((s: RootState) => s.auth);
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
   const dispatch = useDispatch<AppDispatch>();
   const deliveryCharges = 80.00;
@@ -38,7 +38,7 @@ export default function CartPage() {
     <div className="flex flex-col items-center mx-auto w-full">
       <div className="flex items-center justify-center bg-[#F53E32] h-[70px] w-[100vw]">
         <div className="flex justify-between items-center w-[1310px]" style={{ fontFamily: 'Poppins' }}>
-          <p className="text-[19px] text-[#FFFFFF]">Product</p>
+          <p className="text-[19px] text-[#FFFFFF]">Checkout</p>
           <p className="text-[14px] text-[#FFFFFF]">Home - Checkout</p>
         </div>
       </div>
@@ -156,7 +156,7 @@ export default function CartPage() {
         {/* Right Column */}
         <div className="w-[856px]">
           {/* Customer */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[856px] h-[435px] text-left">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[856px] text-left">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Customer</h2>
@@ -183,7 +183,7 @@ export default function CartPage() {
             ) : (
               !otpVerified && (
                 <>
-                  <div className="mb-4  text-[#2B2B2D] text-[15px] ">
+                  <div className="mb-4  text-[#2B2B2D] text-[15px]">
                     <label className="block mb-2">OTP</label>
                     <input
                       type="text"
@@ -199,8 +199,12 @@ export default function CartPage() {
                 </>
               )
             )}
-            {otpVerified && <p className="text-green-500">Email verified successfully!</p>}
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-red-500 mt-5">{error}</p>}
+            { message === 'OTP verified successfully'?
+              <p className="text-green-500 mt-5">Email verified successfully!</p>
+              :
+              <p className="text-green-500 mt-5">{message}</p>
+            }
           </div>
 
           {/* Billing Details */}

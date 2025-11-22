@@ -14,6 +14,7 @@ type AuthState = {
   otpVerified: boolean;
   loading: boolean;
   error: string | null;
+  message: string | null;
 };
 
 const initialState: AuthState = {
@@ -24,6 +25,7 @@ const initialState: AuthState = {
   otpVerified: false,
   loading: false,
   error: null,
+  message: null,
 };
 
 export const sendOtp = createAsyncThunk('api/auth/sendOtp', async (email: string, { rejectWithValue }) => {
@@ -31,7 +33,7 @@ export const sendOtp = createAsyncThunk('api/auth/sendOtp', async (email: string
     const response = await api.post('/api/auth/send-otp', { email });
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data?.message || error.response.data || error.message);
   }
 });
 
@@ -40,7 +42,7 @@ export const verifyOtp = createAsyncThunk('auth/verifyOtp', async ({ email, otp 
     const response = await api.post('/api/auth/verify-otp', { email, otp });
     return response.data;
   } catch (error: any) {
-    return rejectWithValue(error.response.data);
+    return rejectWithValue(error.response.data?.message || error.response.data || error.message);
   }
 });
 
@@ -67,10 +69,12 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.otpSent = false;
+        state.message = null;
       })
-      .addCase(sendOtp.fulfilled, (state) => {
+      .addCase(sendOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.otpSent = true;
+        state.message = action.payload.message || null;
       })
       .addCase(sendOtp.rejected, (state, action) => {
         state.loading = false;
@@ -80,11 +84,13 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
         state.otpVerified = false;
+        state.message = null;
       })
-      .addCase(verifyOtp.fulfilled, (state) => {
+      .addCase(verifyOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.otpVerified = true;
-        state.isLogged = true; // Or handle user session as needed
+        state.isLogged = true;
+        state.message = action.payload.message || null;
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;

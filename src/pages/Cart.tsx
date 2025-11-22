@@ -1,20 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store/store';
 import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
-import { sendOtp, verifyOtp } from '../store/slices/authSlice';
+import { sendOtp, verifyOtp, setOtpVerifiedState, setUser } from '../store/slices/authSlice';
+import { createOrder } from '../store/slices/cartSlice'; // Import the new thunk
 import paymentCards from '../assets/payment-cards.png';
+import { api } from '../api/client';
+import OrderPlacedModal from '../components/OrderPlacedModal'; // Import the modal component
+import { useNavigate } from 'react-router-dom';
 
 export default function CartPage() {
   const [email, setEmail] = useState('');
   const [otp, setOtp] = useState('');
   const [emailError, setEmailError] = useState('');
+  const { otpSent, otpVerified, loading, error, message, user } = useSelector((s: RootState) => s.auth);
+  const [billingDetails, setBillingDetails] = useState({
+    firstName: user?.name || '', // Pre-fill first name if available
+    lastName: '',
+    address: '',
+    city: '',
+    postCode: '',
+    country: '',
+    regionState: '',
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   const items = useSelector((s: RootState) => s.cart.items);
-  const { otpSent, otpVerified, loading, error, message } = useSelector((s: RootState) => s.auth);
+  const { loading: orderLoading, error: orderError } = useSelector((s: RootState) => s.cart);
   const total = items.reduce((s, i) => s + i.price * i.qty, 0);
   const dispatch = useDispatch<AppDispatch>();
   const deliveryCharges = 80.00;
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    const storedOtpVerified = localStorage.getItem('otpVerified');
+    if (storedUser && storedOtpVerified === 'true') {
+      try {
+        const user = JSON.parse(storedUser);
+        if (user && user.id && user.email) {
+          dispatch(setUser({ user: { id: user.id, email: user.email }, token: '' }));
+          dispatch(setOtpVerifiedState(true));
+          setEmail(user.email);
+        } else {
+          localStorage.removeItem('user');
+          localStorage.removeItem('otpVerified');
+          dispatch(setOtpVerifiedState(false));
+          setEmail('');
+        }
+      } catch (e) {
+        console.error("Failed to parse user from localStorage", e);
+        localStorage.removeItem('user');
+        localStorage.removeItem('otpVerified');
+        dispatch(setOtpVerifiedState(false));
+        setEmail('');
+      }
+    }
+  }, [dispatch]);
 
   const handleSendOtp = () => {
     if (validateEmail(email)) {
@@ -25,13 +67,72 @@ export default function CartPage() {
     }
   };
 
-  const handleVerifyOtp = () => {
-    dispatch(verifyOtp({ email, otp }));
+  const handleVerifyOtp = async () => {
+    const result = await dispatch(verifyOtp({ email, otp }));
+    if (verifyOtp.fulfilled.match(result)) {
+      const { user: verifiedUser } = result.payload;
+      if (verifiedUser && verifiedUser.id && verifiedUser.email) {
+        localStorage.setItem('otpVerified', 'true');
+        localStorage.setItem('user', JSON.stringify({ id: verifiedUser.id, email: verifiedUser.email }));
+        // The setUser action in authSlice is already called by the thunk
+      } else {
+        alert('Verification successful, but user data is incomplete. Please try again or contact support.');
+        localStorage.removeItem('otpVerified');
+        localStorage.removeItem('user');
+        dispatch(setOtpVerifiedState(false));
+      }
+    }
   };
 
   const validateEmail = (email: string) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
+  };
+
+  const handleBillingDetailsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setBillingDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
+  };
+
+  const handlePlaceOrder = async () => {
+    if (!otpVerified) {
+      alert('Please verify your email with OTP before placing the order.');
+      return;
+    }
+
+    if (!user || !user.id) {
+      alert('User not logged in or user ID is missing.');
+      return;
+    }
+
+    const orderDetails = {
+      items,
+      address: billingDetails.address,
+      paymentOption: 'Cash On Delivery', // Placeholder, ideally from user selection
+      deliveryMethod: 'Free Shipping', // Placeholder, ideally from user selection
+      billingDetails,
+      userId: user.id,
+      totalAmount: total + deliveryCharges,
+      deliveryFee: deliveryCharges,
+    };
+
+    const result = await dispatch(createOrder(orderDetails));
+
+    if (createOrder.fulfilled.match(result)) {
+      setIsModalOpen(true); // Open the modal on successful order placement
+      dispatch(clearCart()); // Clear the cart after successful order
+    } else {
+      alert('Failed to place order: ' + (result.payload as string || 'Unknown error'));
+    }
+  };
+
+  const handleCloseModal = () => {
+    navigate('/')
+    setIsModalOpen(false);
+    // Optionally redirect to home or orders page after closing modal
   };
 
   return (
@@ -161,50 +262,67 @@ export default function CartPage() {
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Customer</h2>
             <p className="text-[#2B2B2D] text-[15px] mb-4">Checkout Options</p>
-            <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
+            {!otpVerified && <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
-            }}>Returning Customer</h2>
-            <div className="mb-4  text-[#2B2B2D] text-[15px] ">
-              <label className="block mb-2">Email Address</label>
-              <input
-                type="email"
-                placeholder="Enter your email address"
-                className="w-full p-3 border border-gray-300 rounded"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={otpSent}
-              />
-              {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
-            </div>
-            {!otpSent ? (
-              <button onClick={handleSendOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
-                {loading ? 'Sending...' : 'Send OTP'}
-              </button>
-            ) : (
-              !otpVerified && (
-                <>
-                  <div className="mb-4  text-[#2B2B2D] text-[15px]">
-                    <label className="block mb-2">OTP</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your OTP"
-                      className="w-full p-3 border border-gray-300 rounded"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value)}
-                    />
-                  </div>
-                  <button onClick={handleVerifyOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
-                    {loading ? 'Verifying...' : 'Verify'}
+            }}>Returning Customer</h2>}
+            {!otpVerified ? (
+              <>
+                <div className="mb-4  text-[#2B2B2D] text-[15px] ">
+                  <label className="block mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="w-full p-3 border border-gray-300 rounded"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={otpSent}
+                  />
+                  {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
+                </div>
+                {!otpSent ? (
+                  <button onClick={handleSendOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
+                    {loading ? 'Sending...' : 'Send OTP'}
                   </button>
-                </>
-              )
+                ) : (
+                  <>
+                    <div className="mb-4  text-[#2B2B2D] text-[15px]">
+                      <label className="block mb-2">OTP</label>
+                      <input
+                        type="text"
+                        placeholder="Enter your OTP"
+                        className="w-full p-3 border border-gray-300 rounded"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                      />
+                    </div>
+                    <button onClick={handleVerifyOtp} disabled={loading} className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer h-[40px] text-white px-6 rounded mt-4">
+                      {loading ? 'Verifying...' : 'Verify'}
+                    </button>
+                  </>
+                )}
+                {error && <p className="text-red-500 mt-5">{error}</p>}
+                {message && message !== 'OTP verified successfully' && (
+                  <p className="text-green-500 mt-5">{message}</p>
+                )}
+              </>
+            ) : (
+              <div className="flex items-center justify-between mt-5">
+                <p className="text-green-500">Email verified successfully for {user?.email}!</p>
+                <button
+                  onClick={() => {
+                    localStorage.removeItem('otpVerified');
+                    localStorage.removeItem('user');
+                    dispatch(setOtpVerifiedState(false));
+                    dispatch(setUser({ user: { id: '', email: '' }, token: '' })); // Clear user state
+                    setEmail('');
+                    setOtp('');
+                  }}
+                  className="bg-red-500 hover:bg-red-700 text-white px-4 py-2 rounded"
+                >
+                  Remove Verification
+                </button>
+              </div>
             )}
-            {error && <p className="text-red-500 mt-5">{error}</p>}
-            { message === 'OTP verified successfully'?
-              <p className="text-green-500 mt-5">Email verified successfully!</p>
-              :
-              <p className="text-green-500 mt-5">{message}</p>
-            }
           </div>
 
           {/* Billing Details */}
@@ -216,33 +334,76 @@ export default function CartPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 mb-2">First Name*</label>
-                <input type="text" placeholder="Enter your first name" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="text"
+                  name="firstName"
+                  placeholder="Enter your first name"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  value={billingDetails.firstName}
+                  onChange={handleBillingDetailsChange}
+                />
               </div>
               <div>
                 <label className="block text-gray-700 mb-2">Last Name*</label>
-                <input type="text" placeholder="Enter your last name" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="text"
+                  name="lastName"
+                  placeholder="Enter your last name"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  value={billingDetails.lastName}
+                  onChange={handleBillingDetailsChange}
+                />
               </div>
             </div>
             <div className="mt-4">
               <label className="block text-gray-700 mb-2">Address</label>
-              <input type="text" placeholder="Address Line 1" className="w-full p-3 border border-gray-300 rounded" />
+              <input
+                type="text"
+                name="address"
+                placeholder="Address Line 1"
+                className="w-full p-3 border border-gray-300 rounded"
+                value={billingDetails.address}
+                onChange={handleBillingDetailsChange}
+              />
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div>
                 <label className="block text-gray-700 mb-2">City*</label>
-                <input type="text" placeholder="City" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="City"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  value={billingDetails.city}
+                  onChange={handleBillingDetailsChange}
+                />
               </div>
               <div>
                 <label className="block text-gray-700 mb-2">Post Code</label>
-                <input type="text" placeholder="Post Code" className="w-full p-3 border border-gray-300 rounded" />
+                <input
+                  type="text"
+                  name="postCode"
+                  placeholder="Post Code"
+                  className="w-full p-3 border border-gray-300 rounded"
+                  value={billingDetails.postCode}
+                  onChange={handleBillingDetailsChange}
+                />
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4 mt-4">
               <div>
                 <label className="block text-gray-700 mb-2">Country*</label>
                 <div className="relative">
-                  <select className="w-full p-3 border border-gray-300 rounded pr-10 appearance-none hide-native-arrow">
-                    <option>Country</option>
+                  <select
+                    name="country"
+                    className="w-full p-3 border border-gray-300 rounded pr-10 appearance-none hide-native-arrow"
+                    value={billingDetails.country}
+                    onChange={handleBillingDetailsChange}
+                  >
+                    <option value="">Country</option>
+                    <option value="USA">USA</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UK">UK</option>
                   </select>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
                     <svg
@@ -259,8 +420,16 @@ export default function CartPage() {
               <div>
                 <label className="block text-gray-700 mb-2">Region/State</label>
                 <div className="relative">
-                  <select className="w-full p-3 border border-gray-300 rounded pr-10 appearance-none hide-native-arrow">
-                    <option>Region/State</option>
+                  <select
+                    name="regionState"
+                    className="w-full p-3 border border-gray-300 rounded pr-10 appearance-none hide-native-arrow"
+                    value={billingDetails.regionState}
+                    onChange={handleBillingDetailsChange}
+                  >
+                    <option value="">Region/State</option>
+                    <option value="California">California</option>
+                    <option value="New York">New York</option>
+                    <option value="Texas">Texas</option>
                   </select>
 
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
@@ -278,10 +447,23 @@ export default function CartPage() {
             </div>
           </div>
           <div className="text-right mt-6">
-            <button className="bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer text-white py-3 px-8 rounded">Place Order</button>
+            <button
+              onClick={handlePlaceOrder}
+              disabled={!otpVerified || orderLoading}
+              className={`bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer text-white py-3 px-8 rounded ${!otpVerified || orderLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              {orderLoading ? 'Processing...' : 'Place Order'}
+            </button>
+            {!otpVerified && (
+              <p className="text-red-500 text-sm mt-2">Please verify your email with OTP before placing the order.</p>
+            )}
+            {orderError && (
+              <p className="text-red-500 text-sm mt-2">{orderError}</p>
+            )}
           </div>
         </div>
       </div>
+      <OrderPlacedModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 }

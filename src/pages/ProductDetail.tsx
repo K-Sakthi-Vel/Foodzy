@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import AddToCartButton from '../components/AddToCartButton';
+import FilterOptions from '../components/FilterOptions';
+import ProductInfo from '../components/ProductInfo';
+import ProductDetailPopularProducts from '../components/ProductDetailPopularProducts';
+import products from '../data/products.json';
 
-type Product = { id: string; title: string; price: number; description?: string; image?: string };
-
-export default function ProductDetail() {
-  const { id } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
+const ProductDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const product = products.find((p) => p.id === Number(id));
 
   useEffect(() => {
-    // dev: replace with API call GET /products/:id
-    setProduct({
-      id: id ?? '1',
-      title: 'Sample Dish ' + id,
-      price: 199,
-      description: 'Tasty and fresh.'
-    });
+    window.scrollTo(0, 0);
   }, [id]);
 
-  if (!product) return <div>Loading...</div>;
-
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="h-80 bg-gray-100 rounded flex items-center justify-center">Image</div>
-        <div>
-          <h1 className="text-2xl font-semibold mb-2">{product.title}</h1>
-          <div className="text-xl font-bold mb-4">₹{product.price.toFixed(2)}</div>
-          <p className="text-gray-600 mb-6">{product.description}</p>
-          <AddToCartButton item={{ id: product.id, name: product.title, price: product.price, qty: 1 }} />
+    <div className="flex flex-col items-center w-[100vw]">
+      <div className="flex items-center justify-center bg-[#F53E32] h-[70px] w-full">
+        <div className="flex justify-between items-center w-[1310px]" style={{ fontFamily: 'Poppins' }}>
+          <p className="text-[19px] text-[#FFFFFF]">Product</p>
+          <p className="text-[14px] text-[#FFFFFF]">Home - Product</p>
         </div>
       </div>
+      <div className="grid grid-cols-12 gap-8 w-[1310px] mt-20">
+        <div className="col-span-3">
+          <FilterOptions />
+        </div>
+        <div className="w-[996px] col-span-9">
+          <ProductInfo product={product} />
+        </div>
+      </div>
+      <ProductDetailPopularProducts />
     </div>
   );
-}
+};
+
+export default ProductDetail;

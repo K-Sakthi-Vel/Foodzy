@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Seeds of Change Organic Quinoa, Brown, & Red Rice",
+    "rating": 4.2,
+    "seller": "NestFood",
+    "original_price": 33.8,
+    "price": 32.85,
+    "image": "dotd1.png"
+  },
+  {
+    "id": 2,
+    "title": "Perdue Simply Smart Organics Gluten Free",
+    "rating": 4.7,
+    "seller": "Old El Paso",
+    "original_price": 26.8,
+    "price": 24.85,
+    "image": "dotd2.png"
+  },
+  {
+    "id": 3,
+    "title": "Signature Wood-Fired Mushroom and Caramelized",
+    "rating": 3.2,
+    "seller": "Progresso",
+    "original_price": 13.8,
+    "price": 12.85,
+    "image": "dotd3.png"
+  },
+  {
+    "id": 4,
+    "title": "Simply Lemonade with Raspberry Juice",
+    "rating": 3.7,
+    "seller": "Yoplait",
+    "original_price": 16.8,
+    "price": 15.85,
+    "image": "dotd4.png"
+  }
+]

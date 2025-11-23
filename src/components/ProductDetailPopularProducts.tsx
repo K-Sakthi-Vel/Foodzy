@@ -3,8 +3,8 @@ import PopularProductCard from './PopularProductCard';
 
 const ProductDetailPopularProducts = () => {
   return (
-    <section className="w-[100vw] pt-15">
-      <div className="w-[1320px] mx-auto">
+    <section className="w-full pt-15">
+      <div className="w-full max-w-[1320px] mx-auto px-4">
         <h2 className="text-[32px] text-[#2B2B2D] font-bold text-center mb-5" style={{fontFamily:'Manrope'}}>
           Popular Products
         </h2>

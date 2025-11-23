@@ -30,6 +30,7 @@ interface ProductInfoProps {
 
 const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
+  const [activeTab, setActiveTab] = useState('Description');
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
@@ -45,13 +46,13 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     alert('Added to cart'); // Replace with a toast notification later
   };
     return (
-        <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-6">
-                <div className="p-4 border rounded-lg" style={{ width: 471, height: 590, backgroundColor: '#F7F7F8', borderColor: '#E9E9E9' }}>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="col-span-full lg:col-span-6">
+                <div className="p-4 border rounded-lg w-full h-auto lg:w-[471px] lg:h-[590px] bg-[#F7F7F8] border-[#E9E9E9]">
                     <img src={`/src/assets/products/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
                 </div>
             </div>
-            <div className="col-span-6" style={{ width: 495, height: 592.25 }}>
+            <div className="col-span-full lg:col-span-6 w-full h-auto lg:w-[495px] lg:h-[592px]">
                 <h1 className="text-[22px]  text-[#2B2B2D]">{product.name}</h1>
                 <p className="text-[#7A7A7A] text-[14px] my-2" style={{ fontFamily: 'Poppins' }}>{product.description}</p>
                 <div className="flex items-center my-2 border-t-1 border-t-[#E9E9E9] mt-5 pt-5">
@@ -100,18 +101,40 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
                     <button onClick={handleAddToCart} className="ml-4 bg-red-500 text-white px-6 py-2 rounded-md">Add To Cart</button>
                 </div>
             </div>
-            <div className="col-span-12 mt-8 w-[996px] border border-1 border-[#E9E9E9] rounded-[5px] p-5">
+            <div className="col-span-12 mt-8 w-full border border-1 border-[#E9E9E9] rounded-[5px] p-5">
                 <div className="border-b">
                     <nav className="flex space-x-4 text-[17px] font-semibold text-[#2B2B2D]">
-                        <button className="py-2 px-4 border-b-2 border-b-[#F53E32] text-[#F53E32]">Description</button>
-                        <button className="py-2 px-4">Information</button>
-                        <button className="py-2 px-4">Review</button>
+                        {['Description', 'Information', 'Review'].map((tab) => (
+                            <button
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`py-2 px-4 ${activeTab === tab ? 'border-b-2 border-b-[#F53E32] text-[#F53E32]' : ''}`}
+                            >
+                                {tab}
+                            </button>
+                        ))}
                     </nav>
                 </div>
                 <div className="py-4 text-[14px] text-[#7A7A7A]">
-                    <p>{product.description}</p>
-                    <h3 className="font-semibold mt-7 mb-5 border-b-1 border-b-[#E9E9E9] pb-5 text-[#2B2B2D]">Packaging & Delivery</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in vero perferendis dolor! Quis vel consequatur repellat distinctio rem. Corrupti ratione alias odio, error dolore temporibus consequatur, nobis veniam odit laborum dignissimos consectetur quae vero in perferendis provident quis.</p>
+                    {activeTab === 'Description' && (
+                        <>
+                            <p>{product.description}</p>
+                            <h3 className="font-semibold mt-7 mb-5 border-b-1 border-b-[#E9E9E9] pb-5 text-[#2B2B2D]">Packaging & Delivery</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error in vero perferendis dolor! Quis vel consequatur repellat distinctio rem. Corrupti ratione alias odio, error dolore temporibus consequatur, nobis veniam odit laborum dignissimos consectetur quae vero in perferendis provident quis.</p>
+                        </>
+                    )}
+                    {activeTab === 'Information' && (
+                        <div>
+                            <h3 className="font-semibold text-[#2B2B2D]">Product Information</h3>
+                            <p>Details about the product information will be displayed here.</p>
+                        </div>
+                    )}
+                    {activeTab === 'Review' && (
+                        <div>
+                            <h3 className="font-semibold text-[#2B2B2D]">Customer Reviews</h3>
+                            <p>Reviews will be displayed here.</p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -91,7 +91,7 @@ export default function ProductCard({
                <button className="w-full bg-[#F53E32] hover:bg-[#D8372C] text-white rounded-md py-2 px-4 font-bold cursor-pointer">Add To Cart</button>
             ) : (
               <AddToCartButton
-                item={{ id, name: title, price, qty: 1, image: image ? image.split('/').pop() : undefined }}
+                item={{ id, name: title, price, qty: 1, image }}
               />
             )}
           </div>

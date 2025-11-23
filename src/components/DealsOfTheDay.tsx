@@ -53,3 +53,5 @@ const DealsOfTheDay: React.FC = () => {
     </section>
   );
 };
+
+export default DealsOfTheDay;

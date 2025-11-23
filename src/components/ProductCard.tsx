@@ -40,8 +40,6 @@ export default function ProductCard({
     return 'bg-[#F53E32]';
   };
 
-  console.log('image', image)
-
   return (
     <div className={`w-full min-w-[250px] ${cardHeight} rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins`}>
       {tag && (
@@ -91,7 +89,7 @@ export default function ProductCard({
                <button className="w-full bg-[#F53E32] hover:bg-[#D8372C] text-white rounded-md py-2 px-4 font-bold cursor-pointer">Add To Cart</button>
             ) : (
               <AddToCartButton
-                item={{ id, name: title, price, qty: 1, image }}
+                item={{ id, name: title, price, qty: 1, image: image ? image.split('/').pop() : undefined }}
               />
             )}
           </div>

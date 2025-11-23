@@ -69,7 +69,6 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     alert('Added to cart');
   };
 
-  console.log('product', product)
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="col-span-full lg:col-span-6">

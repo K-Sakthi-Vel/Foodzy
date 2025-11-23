@@ -4,28 +4,29 @@ import personImage from '../assets/person-image-subscribe-section.png';
 import Send from '../assets/send.png';
 const SubscribeBanner = () => {
   return (
-    <section className='w-[100vw] flex justify-center mt-10'>
+    <section className='w-full container mx-auto mt-10 px-4'>
       <div
-        className="relative w-[1609px] h-[417px] rounded-[20px] bg-cover bg-center text-white p-10 flex flex-col justify-center"
+        className="relative w-full h-auto md:h-[417px] rounded-[20px] bg-cover bg-center text-white p-6 md:p-10 flex flex-col justify-center"
         style={{ backgroundImage: `url(${subscribeBanner})` }}
       >
-        <div className="w-[530px] absolute bottom-22 left-20">
-          <h2 className="text-[40px] text-black font-bold mb-4" style={{ fontFamily: 'Quicksand' }}>
+        <div className="md:w-[530px] text-center md:text-left z-10">
+          <h2 className="text-2xl md:text-[40px] text-black font-bold mb-4" style={{ fontFamily: 'Quicksand' }}>
             Stay home & get your daily needs from our shop
           </h2>
-          <p className="text-[18px] text-[#7E7E7E] mb-6" style={{ fontFamily: 'Lato' }}>
+          <p className="text-base md:text-[18px] text-[#7E7E7E] mb-6" style={{ fontFamily: 'Lato' }}>
             Start You'r Daily Shopping with <span className='text-[#3BB77E]'>Nest Mart</span>
           </p>
           {/* Subscription Input */}
-          <div className="flex items-center bg-white rounded-full shadow-sm pl-4 py-3 h-[64px] w-[420px]">
-            <img className="h-4 w-4" src={Send} alt="img1" />
-
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 outline-none ml-3 text-[15px] text-gray-600"
-            />
-            <button className="h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
+          <div className="flex flex-col sm:flex-row items-center bg-white rounded-full shadow-sm p-2 sm:p-0 sm:h-[64px] w-full max-w-md mx-auto md:mx-0 md:w-[420px]">
+            <div className="flex items-center w-full sm:flex-1 pl-2">
+              <img className="h-4 w-4" src={Send} alt="img1" />
+              <input
+                type="email"
+                placeholder="Your email address"
+                className="flex-1 outline-none ml-3 text-[15px] text-gray-600 w-full"
+              />
+            </div>
+            <button className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
               Subscribe
             </button>
           </div>
@@ -33,11 +34,11 @@ const SubscribeBanner = () => {
         <img
           src={personImage}
           alt="Delivery Person"
-          className="absolute bottom-0 right-10"
-          style={{ width: '634px', height: '345px' }}
+          className="hidden md:block absolute bottom-0 right-10 w-[634px] h-[345px]"
         />
       </div>
     </section>
+
   );
 };
 

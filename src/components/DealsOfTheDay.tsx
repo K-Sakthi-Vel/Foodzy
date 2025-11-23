@@ -3,27 +3,27 @@ import dealsData from '../data/dealsOfTheDay.json';
 import Cart from '../assets/add-cart.png'
 const DealsOfTheDay: React.FC = () => {
   return (
-    <section className="w-[100vw] h-[545px] flex justify-center mx-auto mt-10">
-      <div className='w-[1610px]'>
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[32px] font-bold text-black" style={{ fontFamily: 'Quicksand' }}>
+    <section className="w-full container mx-auto mt-10 px-4">
+      <div>
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-[32px] font-bold text-black text-center md:text-left" style={{ fontFamily: 'Quicksand' }}>
             Deals Of The Day
           </h2>
-          <span className="text-lg text-gray-600 hover:text-green-500 cursor-pointer">
+          <span className="text-lg text-gray-600 hover:text-green-500 cursor-pointer mt-2 md:mt-0">
             All Deals {'>'}
           </span>
         </div>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {dealsData.map((deal) => (
-            <div key={deal.id} className="w-[378.5px] h-[462.55px]  overflow-hidden relative">
+            <div key={deal.id} className="w-full h-[462.55px] overflow-hidden relative">
               <img
                 src={`/src/assets/deals_of_the_day/${deal.image}`}
                 alt={deal.title}
                 className="w-full h-[335.17px] object-cover rounded-[15px]"
               />
-              <div className="absolute bottom-9 left-1/2 -translate-x-1/2 w-[325.5px] h-[192.38px] bg-white rounded-[10px] p-6 shadow-md flex flex-col justify-between">
+              <div className="absolute bottom-9 left-1/2 -translate-x-1/2 w-[90%] md:w-[325.5px] h-[192.38px] bg-white rounded-[10px] p-4 md:p-6 shadow-md flex flex-col justify-between">
                 <div>
-                  <h3 className="text-[16px] font-bold text-gray-800" style={{fontFamily:'Quicksand'}}>{deal.title}</h3>
+                  <h3 className="text-[16px] font-bold text-gray-800" style={{ fontFamily: 'Quicksand' }}>{deal.title}</h3>
                   <div className="flex items-center mt-1">
                     <svg
                       className="w-4 h-4 text-yellow-400"
@@ -53,5 +53,3 @@ const DealsOfTheDay: React.FC = () => {
     </section>
   );
 };
-
-export default DealsOfTheDay;

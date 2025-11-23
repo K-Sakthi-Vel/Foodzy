@@ -40,6 +40,8 @@ export default function ProductCard({
     return 'bg-[#F53E32]';
   };
 
+  console.log('image', image)
+
   return (
     <div className={`w-full min-w-[250px] ${cardHeight} rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins`}>
       {tag && (

@@ -56,7 +56,7 @@ export default function CartPage() {
   const deliveryCharges = 80.00;
   const navigate = useNavigate()
 
-  console.log('items', imageMap[items[0].image.split('/').pop()])
+  console.log('items', items)
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');

@@ -9,7 +9,7 @@ interface OrderPlacedModalProps {
 }
 
 export default function OrderPlacedModal({ isOpen, onClose }: OrderPlacedModalProps) {
-  const userName = useSelector((s: RootState) => s.auth.user?.name); // Assuming user has a 'name' field
+  const userName = useSelector((s: RootState) => s.auth.user?.name);
 
   if (!isOpen) return null;
 
@@ -24,9 +24,9 @@ export default function OrderPlacedModal({ isOpen, onClose }: OrderPlacedModalPr
           backgroundImage: `url(${orderPlaceBg})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          color: 'white', // Ensure text is visible on image
+          color: 'white', 
         }}
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+        onClick={(e) => e.stopPropagation()}
       >
         <button onClick={onClose} className="absolute top-2 right-2 text-white text-xl">
           &times;

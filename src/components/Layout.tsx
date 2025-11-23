@@ -7,10 +7,10 @@ type Props = { children: React.ReactNode };
 
 export default function Layout({ children }: Props) {
   return (
-    <div className="min-h-screen min-w-screen flex flex-col">
+    <div className=" flex flex-col">
       <Navbar />
       <TopHeader />
-      <main className="flex-1">{children}</main>
+      <main className="">{children}</main>
       <Footer />
     </div>
   );

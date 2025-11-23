@@ -2,13 +2,13 @@ import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { api } from '../../api/client';
 
 type User = {
-  id: string; // User ID is now required
-  email: string; // Email is now required
-  name?: string; // Add name field to User type
+  id: string; 
+  email: string;
+  name?: string; 
 };
 
 type AuthState = {
-  user?: User; // Make user required
+  user?: User;
   token?: string;
   isLogged: boolean;
   otpSent: boolean;
@@ -78,13 +78,12 @@ const authSlice = createSlice({
       .addCase(sendOtp.fulfilled, (state, action) => {
         state.loading = false;
         state.message = action.payload.message || null;
-        state.otpSent = action.payload.otpSent || false; // Set otpSent based on payload
-        state.otpVerified = action.payload.otpVerified || false; // Set otpVerified based on payload
+        state.otpSent = action.payload.otpSent || false;
+        state.otpVerified = action.payload.otpVerified || false;
 
         if (action.payload.user) {
           state.user = action.payload.user;
           state.isLogged = true;
-          // Also store in localStorage similar to verifyOtp success if needed on frontend
           localStorage.setItem('otpVerified', 'true');
           localStorage.setItem('user', JSON.stringify({ id: action.payload.user.id, email: action.payload.user.email }));
         }
@@ -108,7 +107,7 @@ const authSlice = createSlice({
         state.otpVerified = true;
         state.isLogged = true;
         state.message = action.payload.message || null;
-        state.user = action.payload.user; // Store user object (including id and email)
+        state.user = action.payload.user;
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading = false;

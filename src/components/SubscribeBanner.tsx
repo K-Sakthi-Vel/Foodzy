@@ -19,7 +19,7 @@ const SubscribeBanner = () => {
           {/* Subscription Input */}
           <div className="flex flex-col sm:flex-row items-center bg-white rounded-full shadow-sm p-2 sm:p-0 sm:h-[64px] w-full max-w-md mx-auto md:mx-0 md:w-[420px]">
             <div className="flex items-center w-full sm:flex-1 pl-2">
-              <img className="h-4 w-4" src={Send} alt="img1" />
+              <img className="ml-3 h-4 w-4" src={Send} alt="img1" />
               <input
                 type="email"
                 placeholder="Your email address"

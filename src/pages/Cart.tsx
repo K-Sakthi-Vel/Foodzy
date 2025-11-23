@@ -1,13 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import type { RootState, AppDispatch } from '../store/store';
-import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
-import { sendOtp, verifyOtp, setOtpVerifiedState, setUser } from '../store/slices/authSlice';
-import { createOrder } from '../store/slices/cartSlice';
-import paymentCards from '../assets/payment-cards.png';
-import { api } from '../api/client';
-import OrderPlacedModal from '../components/OrderPlacedModal';
-import { useNavigate } from 'react-router-dom';
 import apple from '../assets/products/apple.png';
 import coconut from '../assets/products/coconut-flakes.jpg';
 import coffee from '../assets/products/coffee.jpg';
@@ -31,6 +22,16 @@ const imageMap: { [key: string]: string } = {
   'pistachio.jpg': pistachio,
   'watermelon.png': watermelon,
 };
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, AppDispatch } from '../store/store';
+import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
+import { sendOtp, verifyOtp, setOtpVerifiedState, setUser } from '../store/slices/authSlice';
+import { createOrder } from '../store/slices/cartSlice';
+import paymentCards from '../assets/payment-cards.png';
+import { api } from '../api/client';
+import OrderPlacedModal from '../components/OrderPlacedModal';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function CartPage() {
   const [email, setEmail] = useState('');

@@ -29,21 +29,19 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
   };
 
   return (
-    <section className="flex justify-center w-screen mx-auto pt-12 pb-12">
-      <div className="w-[1610px] h-[623.77px] relative">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[32px] font-bold text-black" style={{ fontFamily: 'Quicksand' }}>
+    <section className="w-full container mx-auto pt-12 pb-12 px-4">
+      <div className="relative">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-[32px] font-bold text-black text-center md:text-left" style={{ fontFamily: 'Quicksand' }}>
             Daily Best Sells
           </h2>
-          <div className="flex gap-4">
+          <div className="flex gap-2 md:gap-4 mt-4 md:mt-0 flex-wrap justify-center">
             {filterOptions.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-4 py-2 rounded-md font-semibold text-[16px] cursor-pointer ${
-                  activeFilter === filter
-                    ? 'text-green-700'
-                    : 'text-gray-600'
+                className={`px-3 py-1 md:px-4 md:py-2 rounded-md font-semibold text-sm md:text-[16px] cursor-pointer ${
+                  activeFilter === filter ? 'text-green-700' : 'text-gray-600'
                 }`}
                 style={{ fontFamily: 'Quicksand' }}
               >
@@ -53,31 +51,29 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
           </div>
         </div>
 
-        <div className="flex gap-x-8">
-          <div className="w-[378.5px] h-[520px] rounded-[15px] overflow-hidden">
-            <div className='absolute h-[300px]'>
-                    <div className='absolute top-[49px] left-[50px] h-[270px] w-[250px] leading-[50px]'>
-                        <h2
-                            className='text-white text-[40px] font-bold '
-                            style={{ fontFamily: 'Quicksand, sans-serif' }}
-                        >
-                            Bring nature <br /> into your <br/> home
-                        </h2>
-                        <button className='absolute bottom-0 flex items-center gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-[12px] font-bold'>
-                            Shop Now
-                            <ArrowRightIcon className='h-4 w-4 font-bold' /></button>
-                    </div>
-                </div>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Banner */}
+          <div className="w-full lg:w-[378.5px] h-[520px] rounded-[15px] overflow-hidden relative flex-shrink-0">
             <img src={banner} alt="Daily Best Sells Banner" className="w-full h-full object-cover" />
+            <div className='absolute top-0 left-0 p-8 text-white w-full h-full flex flex-col justify-center'>
+              <h2 className='text-3xl md:text-[40px] font-bold leading-tight' style={{ fontFamily: 'Quicksand, sans-serif' }}>
+                Bring nature <br /> into your <br /> home
+              </h2>
+              <button className='flex items-center gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px] font-bold w-max'>
+                Shop Now
+                <ArrowRightIcon className='h-4 w-4 font-bold' />
+              </button>
+            </div>
           </div>
 
-          <div className="w-[1207.5px] relative">
-            <div 
+          {/* Products */}
+          <div className="w-full lg:w-[calc(100%-378.5px-2rem)] relative">
+            <div
               ref={scrollContainer}
-              className="flex h-[520px] gap-6 overflow-x-auto scrollbar-hide"
+              className="flex gap-6 overflow-x-auto scrollbar-hide h-[520px]"
             >
               {filteredProducts().map((product) => (
-                <div key={product.id} className="flex-shrink-0">
+                <div key={product.id} className="flex-shrink-0 w-[280px]">
                   <ProductCard
                     id={String(product.id)}
                     title={product.name}
@@ -89,23 +85,24 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
                     originalPrice={product.originalPrice}
                     tag={product.tag}
                     showSeller={false}
-                    cardHeight="h-[520px]"
+                    cardHeight="h-full"
                     fullWidthButton={true}
                   />
                 </div>
               ))}
             </div>
-            <button 
-              onClick={() => scroll('left')} 
-              className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition z-10"
+            {/* Scroll Buttons */}
+            <button
+              onClick={() => scroll('left')}
+              className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition z-10 hidden md:block"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button 
+            <button
               onClick={() => scroll('right')}
-              className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition z-10"
+              className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-4 bg-white rounded-full p-2 shadow-md hover:bg-gray-100 transition z-10 hidden md:block"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

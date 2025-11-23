@@ -13,6 +13,8 @@ const imageMap: { [key: string]: string } = {
   'dotd4.png': dotd4,
 };
 
+console.log('sssssssssssss',imageMap[dealsData[0].image])
+
 const DealsOfTheDay: React.FC = () => {
   return (
     <section className="w-full container mx-auto mt-10 px-4">

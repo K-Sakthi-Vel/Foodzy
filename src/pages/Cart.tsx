@@ -56,9 +56,6 @@ export default function CartPage() {
   const deliveryCharges = 80.00;
   const navigate = useNavigate()
 
-  console.log('items', items)
-  console.log('itemsssss', imageMap[items[0].image.split('/').pop()].substring(4))
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedOtpVerified = localStorage.getItem('otpVerified');
@@ -191,7 +188,13 @@ export default function CartPage() {
               {items.map((item) => (
                 <div key={item.id} className="flex items-center justify-between mt-4">
                   <div className="flex items-center">
-                    <img src={imageMap[items[0].image.split('/').pop()].substring(4)} alt={item.name} className="w-16 h-16 rounded" />
+                    <img src={imageMap[
+                      item.image.split('/').pop()
+                      .replace(/-\w+(\.\w+)$/i, '$1')
+                      ]}
+                      alt={item.name}
+                      className="w-16 h-16 rounded"
+                    />
                     <div className="ml-4 text-left">
                       <h3 className="text-[15px] text-[#000000]" style={{
                         fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'

@@ -32,18 +32,18 @@ export default function PopularProductCard({
   rating,
 }: Props) {
   return (
-    <div className="relative bg-white rounded-[5px] p-[13px] text-center border border-gray-200 w-[306px] h-[477px] flex flex-col items-center">
-      <div className=" w-[278px] h-[278px] rounded-[5px] overflow-hidden">
+    <div className="relative bg-white rounded-[5px] p-3 text-center border border-gray-200 w-full h-auto flex flex-col items-center">
+      <div className="relative w-full aspect-square rounded-[5px]">
         <img
           src={image}
           alt={title}
           className="w-full h-full object-contain"
         />
-        <div className="absolute bottom-[167px] left-1/2 transform -translate-x-1/2 w-9 h-9 rounded-full flex items-center justify-center border border-gray-200 cursor-pointer bg-red-500 hover:bg-[#D8372C] hover:text-white transition-colors">
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-9 h-9 rounded-full flex items-center justify-center border border-gray-200 cursor-pointer bg-red-500 hover:bg-[#D8372C] hover:text-white transition-colors">
           <ShoppingBag size={18} />
         </div>
       </div>
-      <div className="w-[280px] h-[171px] pt-7 flex flex-col items-center justify-center mt-auto">
+      <div className="w-full pt-7 flex flex-col items-center justify-center mt-auto">
         <p className="text-sm text-gray-500">{type}</p>
         <div className="flex items-center my-2">
             {renderStars(rating)}

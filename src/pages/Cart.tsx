@@ -137,17 +137,17 @@ export default function CartPage() {
 
   return (
     <div className="flex flex-col items-center mx-auto w-full">
-      <div className="flex items-center justify-center bg-[#F53E32] h-[70px] w-[100vw]">
-        <div className="flex justify-between items-center w-[1310px]" style={{ fontFamily: 'Poppins' }}>
+      <div className="flex items-center justify-center bg-[#F53E32] h-[70px] w-full">
+        <div className="flex justify-between items-center w-full max-w-[1310px] px-4" style={{ fontFamily: 'Poppins' }}>
           <p className="text-[19px] text-[#FFFFFF]">Checkout</p>
           <p className="text-[14px] text-[#FFFFFF]">Home - Checkout</p>
         </div>
       </div>
-      <div className="flex justify-between gap-8 w-[1310px] mt-20">
+      <div className="flex flex-col lg:flex-row justify-between gap-8 w-full max-w-[1310px] mt-8 lg:mt-20 px-4">
         {/* Left Column */}
-        <div className="w-[440px]">
+        <div className="w-full lg:w-[440px]">
           {/* Summary */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[416px] min-h-[414px] text-[14px] text-[#7A7A7A]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-full lg:w-[416px] min-h-[414px] text-[14px] text-[#7A7A7A]">
             <h2 className="text-[20px] font-semibold mb-4 text-left text-[#000000]">Summary</h2>
             <div className="flex justify-between ">
               <span>Sub-Total</span>
@@ -192,7 +192,7 @@ export default function CartPage() {
           </div>
 
           {/* Delivery Method */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[416px] h-[189px]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-full lg:w-[416px] h-auto lg:h-[189px]">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Delivery Method</h2>
@@ -220,7 +220,7 @@ export default function CartPage() {
           </div>
 
           {/* Payment Method */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[416px]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-full lg:w-[416px]">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Payment Method</h2>
@@ -245,7 +245,7 @@ export default function CartPage() {
             </div>
           </div>
 
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 w-[416px]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 w-full lg:w-[416px]">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Payment Method</h2>
@@ -255,9 +255,9 @@ export default function CartPage() {
         </div>
 
         {/* Right Column */}
-        <div className="w-[856px]">
+        <div className="w-full lg:w-[856px]">
           {/* Customer */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-[856px] text-left">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 mb-6 w-full lg:w-[856px] text-left">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Customer</h2>
@@ -326,7 +326,7 @@ export default function CartPage() {
           </div>
 
           {/* Billing Details */}
-          <div className="border border-[#E9E9E9] rounded-[5px] p-6 w-[851px] h-[530px] text-left  text-[15px] text-[#2B2B2D]">
+          <div className="border border-[#E9E9E9] rounded-[5px] p-6 w-full lg:w-[851px] h-auto lg:h-[530px] text-left  text-[15px] text-[#2B2B2D]">
             <h2 className="text-[20px] font-semibold mb-2 text-left text-[#000000]" style={{
               fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
             }}>Billing Details</h2>

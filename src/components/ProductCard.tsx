@@ -27,7 +27,7 @@ export default function ProductCard({
   tag,
   rating,
   showSeller = true,
-  cardHeight = 'h-[465.38px]',
+  cardHeight = 'h-full',
   fullWidthButton = false,
 }: Props) {
   const getTagBgColor = () => {
@@ -41,7 +41,7 @@ export default function ProductCard({
   };
 
   return (
-    <div className={`w-[298px] ${cardHeight} rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins`}>
+    <div className={`w-full min-w-[250px] ${cardHeight} rounded-[15px] border border-gray-200 p-3 flex flex-col relative font-poppins`}>
       {tag && (
         <div
           className={`absolute flex items-center justify-center rounded-tl-[15px] rounded-tr-0 rounded-br-[20px] rounded-bl-0 top-[-1px] left-[-1px] h-[31px] ${getTagBgColor()} text-white px-4 py-0.5 text-xs font-medium`}
@@ -49,8 +49,8 @@ export default function ProductCard({
           {tag}
         </div>
       )}
-      <div className="w-[296px] h-[278px] mx-auto flex items-center justify-center">
-        <Link to={`/product/${id}`} className="w-[246px] h-[246px] flex items-center justify-center">
+      <div className="w-full aspect-square mx-auto flex items-center justify-center">
+        <Link to={`/product/${id}`} className="w-full h-full flex items-center justify-center">
           {image ? (
             <img src={image} alt={title} className="max-w-full max-h-full object-contain" />
           ) : (

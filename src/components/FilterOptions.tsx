@@ -2,7 +2,7 @@ import React from 'react';
 
 const FilterOptions: React.FC = () => {
     return (
-        <div className="p-6 border rounded-lg shadow-sm bg-[#F7F7F8] border-[#E9E9E9] border-1" style={{ width: 306, height: 578 }}>
+        <div className="p-6 border rounded-lg shadow-sm bg-[#F7F7F8] border-[#E9E9E9] border-1 w-full h-auto">
             <h2 className="text-[16px] text-[#2B2B2D]" style={{ fontFamily: 'Poppins' }}>Product Category</h2>
             <div className="space-y-2 mt-3 border-t-1 border-t-[#E9E9E9] pt-5  text-[14px] text-[#7A7A7A]">
                 <div className="flex items-center justify-between" style={{ fontFamily: 'Poppins' }}>

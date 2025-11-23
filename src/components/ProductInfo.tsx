@@ -1,6 +1,29 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/slices/cartSlice';
+import apple from '../assets/products/apple.png';
+import coconut from '../assets/products/coconut-flakes.jpg';
+import coffee from '../assets/products/coffee.jpg';
+import latte from '../assets/products/latte.jpg';
+import lemon from '../assets/products/lemon.png';
+import macadamia from '../assets/products/macadamia.png';
+import moisturer from '../assets/products/moisturer.jpg';
+import peanut from '../assets/products/peanut-butter.jpg';
+import pistachio from '../assets/products/pistachio.jpg';
+import watermelon from '../assets/products/watermelon.png';
+
+const imageMap: { [key: string]: string } = {
+  'apple.png': apple,
+  'coconut-flakes.jpg': coconut,
+  'coffee.jpg': coffee,
+  'latte.jpg': latte,
+  'lemon.png': lemon,
+  'macadamia.png': macadamia,
+  'moisturer.jpg': moisturer,
+  'peanut-butter.jpg': peanut,
+  'pistachio.jpg': pistachio,
+  'watermelon.png': watermelon,
+};
 
 interface Product {
   id: number;
@@ -40,16 +63,16 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         name: product.name,
         price: product.discountedPrice,
         qty: quantity,
-        image: `/src/assets/products/${product.image}`
+        image: imageMap[product.image]
       })
     );
-    alert('Added to cart'); // Replace with a toast notification later
+    alert('Added to cart');
   };
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="col-span-full lg:col-span-6">
                 <div className="p-4 border rounded-lg w-full h-auto lg:w-[471px] lg:h-[590px] bg-[#F7F7F8] border-[#E9E9E9]">
-                    <img src={`/src/assets/products/${product.image}`} alt={product.name} className="w-full h-full object-cover" />
+                    <img src={imageMap[product.image]} alt={product.name} className="w-full h-full object-cover" />
                 </div>
             </div>
             <div className="col-span-full lg:col-span-6 w-full h-auto lg:w-[495px] lg:h-[592px]">

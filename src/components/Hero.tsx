@@ -11,34 +11,28 @@ const Hero = () => {
     <div
       className="relative w-full h-auto md:h-[851px] bg-[#F0F0F0] overflow-hidden flex items-center justify-center py-20 md:py-0"
     >
-      {/* --- CONTENT CONTAINER --- */}
       <div className="container mx-auto px-4 md:px-0 flex flex-col md:flex-row items-center justify-between">
 
-        {/* --- LEFT TEXT SECTION --- */}
         <div className="z-10 text-center md:text-left md:max-w-[550px]">
 
-          {/* Small Red Line + Label */}
           <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
             <span className="text-[#FF3B3B] font-semibold tracking-wide border-b-3 bottom-grey text-lg md:text-[20px]">100%</span>
             <span className="text-[#111] font-bold text-lg md:text-[20px]">Organic Vegetables</span>
           </div>
 
-          {/* Heading */}
           <h1 className="text-4xl md:text-[56px] font-extrabold leading-tight md:leading-[64px] text-black mb-4">
             The best way to <br />
             stuff your wallet.
           </h1>
 
-          {/* Sub Text */}
           <p className="text-[#555] text-sm md:text-[15px] leading-6 mb-8 max-w-md mx-auto md:mx-0">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet
             reiciendis beatae consequuntur.
           </p>
 
-          {/* Subscription Input */}
           <div className="flex flex-col sm:flex-row items-center bg-white rounded-full shadow-sm p-2 sm:p-0 sm:h-[64px] w-full max-w-md mx-auto md:mx-0 md:w-[420px]">
             <div className="flex items-center w-full sm:flex-1 pl-2">
-              <img className="h-4 w-4" src={Send} alt="img1" />
+              <img className="ml-3 h-4 w-4" src={Send} alt="img1" />
               <input
                 type="email"
                 placeholder="Your email address"
@@ -52,8 +46,6 @@ const Hero = () => {
 
         </div>
 
-        {/* --- Positioned Images --- */}
-        {/* Adjusted for better responsiveness */}
         <img className="hidden md:block h-[485px] w-[690px] absolute bottom-2 right-[-30px] rotate-2" src={Leaf} alt="leaf" />
         <img className="h-[50px] w-[50px] opacity-[50%] absolute top-0 left-0" src={Img1} alt="img1" />
         <img className="h-[100px] w-[100px] absolute bottom-1 left-1" src={Img2} alt="img2" />

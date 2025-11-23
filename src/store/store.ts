@@ -9,6 +9,5 @@ export const store = configureStore({
   }
 });
 
-// TS helpers
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -2,7 +2,6 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import { MapPin, Mail, Phone, Send, Facebook, Twitter, Instagram, Dribbble } from 'lucide-react';
 
-// Placeholder images for the gallery
 import gallery1 from '../../assets/gallery1.jpg';
 import gallery2 from '../../assets/gallery2.jpg';
 import gallery3 from '../../assets/gallery3.jpg';

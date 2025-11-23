@@ -22,7 +22,6 @@ export default function TopHeader() {
             </div>
           </Link>
           <div className="md:hidden">
-            {/* Mobile menu button can go here */}
           </div>
         </div>
 

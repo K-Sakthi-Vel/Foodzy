@@ -3,11 +3,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store/store';
 import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
 import { sendOtp, verifyOtp, setOtpVerifiedState, setUser } from '../store/slices/authSlice';
-import { createOrder } from '../store/slices/cartSlice'; // Import the new thunk
+import { createOrder } from '../store/slices/cartSlice';
 import paymentCards from '../assets/payment-cards.png';
 import { api } from '../api/client';
-import OrderPlacedModal from '../components/OrderPlacedModal'; // Import the modal component
+import OrderPlacedModal from '../components/OrderPlacedModal';
 import { useNavigate } from 'react-router-dom';
+import apple from '../assets/products/apple.png';
+import coconut from '../assets/products/coconut-flakes.jpg';
+import coffee from '../assets/products/coffee.jpg';
+import latte from '../assets/products/latte.jpg';
+import lemon from '../assets/products/lemon.png';
+import macadamia from '../assets/products/macadamia.png';
+import moisturer from '../assets/products/moisturer.jpg';
+import peanut from '../assets/products/peanut-butter.jpg';
+import pistachio from '../assets/products/pistachio.jpg';
+import watermelon from '../assets/products/watermelon.png';
+
+const imageMap: { [key: string]: string } = {
+  'apple.png': apple,
+  'coconut-flakes.jpg': coconut,
+  'coffee.jpg': coffee,
+  'latte.jpg': latte,
+  'lemon.png': lemon,
+  'macadamia.png': macadamia,
+  'moisturer.jpg': moisturer,
+  'peanut-butter.jpg': peanut,
+  'pistachio.jpg': pistachio,
+  'watermelon.png': watermelon,
+};
 
 export default function CartPage() {
   const [email, setEmail] = useState('');
@@ -15,7 +38,7 @@ export default function CartPage() {
   const [emailError, setEmailError] = useState('');
   const { otpSent, otpVerified, loading, error, message, user } = useSelector((s: RootState) => s.auth);
   const [billingDetails, setBillingDetails] = useState({
-    firstName: user?.name || '', // Pre-fill first name if available
+    firstName: user?.name || '', 
     lastName: '',
     address: '',
     city: '',
@@ -23,7 +46,7 @@ export default function CartPage() {
     country: '',
     regionState: '',
   });
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const items = useSelector((s: RootState) => s.cart.items);
   const { loading: orderLoading, error: orderError } = useSelector((s: RootState) => s.cart);
@@ -74,7 +97,6 @@ export default function CartPage() {
       if (verifiedUser && verifiedUser.id && verifiedUser.email) {
         localStorage.setItem('otpVerified', 'true');
         localStorage.setItem('user', JSON.stringify({ id: verifiedUser.id, email: verifiedUser.email }));
-        // The setUser action in authSlice is already called by the thunk
       } else {
         alert('Verification successful, but user data is incomplete. Please try again or contact support.');
         localStorage.removeItem('otpVerified');
@@ -111,8 +133,8 @@ export default function CartPage() {
     const orderDetails = {
       items,
       address: billingDetails.address,
-      paymentOption: 'Cash On Delivery', // Placeholder, ideally from user selection
-      deliveryMethod: 'Free Shipping', // Placeholder, ideally from user selection
+      paymentOption: 'Cash On Delivery',
+      deliveryMethod: 'Free Shipping',
       billingDetails,
       userId: user.id,
       totalAmount: total + deliveryCharges,
@@ -122,8 +144,8 @@ export default function CartPage() {
     const result = await dispatch(createOrder(orderDetails));
 
     if (createOrder.fulfilled.match(result)) {
-      setIsModalOpen(true); // Open the modal on successful order placement
-      dispatch(clearCart()); // Clear the cart after successful order
+      setIsModalOpen(true);
+      dispatch(clearCart());
     } else {
       alert('Failed to place order: ' + (result.payload as string || 'Unknown error'));
     }
@@ -132,7 +154,6 @@ export default function CartPage() {
   const handleCloseModal = () => {
     navigate('/')
     setIsModalOpen(false);
-    // Optionally redirect to home or orders page after closing modal
   };
 
   return (
@@ -166,7 +187,7 @@ export default function CartPage() {
               {items.map((item) => (
                 <div key={item.id} className="flex items-center justify-between mt-4">
                   <div className="flex items-center">
-                    <img src={item.image} alt={item.name} className="w-16 h-16 rounded" />
+                    <img src={imageMap[item.image.split('/').pop() || '']} alt={item.name} className="w-16 h-16 rounded" />
                     <div className="ml-4 text-left">
                       <h3 className="text-[15px] text-[#000000]" style={{
                         fontFamily: 'Segoe UI, Roboto, Oxygen, "Helvetica Neue", sans-serif'
@@ -313,7 +334,7 @@ export default function CartPage() {
                     localStorage.removeItem('otpVerified');
                     localStorage.removeItem('user');
                     dispatch(setOtpVerifiedState(false));
-                    dispatch(setUser({ user: { id: '', email: '' }, token: '' })); // Clear user state
+                    dispatch(setUser({ user: { id: '', email: '' }, token: '' }));
                     setEmail('');
                     setOtp('');
                   }}

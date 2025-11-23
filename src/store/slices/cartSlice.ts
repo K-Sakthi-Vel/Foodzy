@@ -46,7 +46,7 @@ export const createOrder = createAsyncThunk(
     try {
       const response = await api.post('/api/auth/create-order', orderDetails);
       if (response.status === 201) {
-        dispatch(cartSlice.actions.clearCart()); // Use action from the same slice
+        dispatch(cartSlice.actions.clearCart());
         return response.data;
       } else {
         return rejectWithValue(response.data?.message || 'Failed to place order');
@@ -91,7 +91,6 @@ const cartSlice = createSlice({
       })
       .addCase(createOrder.fulfilled, (state) => {
         state.loading = false;
-        // Cart is cleared by the thunk itself on success
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.loading = false;

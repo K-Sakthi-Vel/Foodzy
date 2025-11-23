@@ -1,6 +1,18 @@
 import React from 'react';
 import dealsData from '../data/dealsOfTheDay.json';
-import Cart from '../assets/add-cart.png'
+import Cart from '../assets/add-cart.png';
+import dotd1 from '../assets/deals_of_the_day/dotd1.png';
+import dotd2 from '../assets/deals_of_the_day/dotd2.png';
+import dotd3 from '../assets/deals_of_the_day/dotd3.png';
+import dotd4 from '../assets/deals_of_the_day/dotd4.png';
+
+const imageMap: { [key: string]: string } = {
+  'dotd1.png': dotd1,
+  'dotd2.png': dotd2,
+  'dotd3.png': dotd3,
+  'dotd4.png': dotd4,
+};
+
 const DealsOfTheDay: React.FC = () => {
   return (
     <section className="w-full container mx-auto mt-10 px-4">
@@ -17,7 +29,7 @@ const DealsOfTheDay: React.FC = () => {
           {dealsData.map((deal) => (
             <div key={deal.id} className="w-full h-[462.55px] overflow-hidden relative">
               <img
-                src={`/src/assets/deals_of_the_day/${deal.image}`}
+                src={imageMap[deal.image]}
                 alt={deal.title}
                 className="w-full h-[335.17px] object-cover rounded-[15px]"
               />

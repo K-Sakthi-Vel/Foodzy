@@ -3,6 +3,30 @@ import products from '../data/products.json';
 import ProductCard from './ProductCard';
 import banner from '../assets/daily-best-sells-banner.png';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import apple from '../assets/products/apple.png';
+import coconut from '../assets/products/coconut-flakes.jpg';
+import coffee from '../assets/products/coffee.jpg';
+import latte from '../assets/products/latte.jpg';
+import lemon from '../assets/products/lemon.png';
+import macadamia from '../assets/products/macadamia.png';
+import moisturer from '../assets/products/moisturer.jpg';
+import peanut from '../assets/products/peanut-butter.jpg';
+import pistachio from '../assets/products/pistachio.jpg';
+import watermelon from '../assets/products/watermelon.png';
+
+const imageMap: { [key: string]: string } = {
+  'apple.png': apple,
+  'coconut-flakes.jpg': coconut,
+  'coffee.jpg': coffee,
+  'latte.jpg': latte,
+  'lemon.png': lemon,
+  'macadamia.png': macadamia,
+  'moisturer.jpg': moisturer,
+  'peanut-butter.jpg': peanut,
+  'pistachio.jpg': pistachio,
+  'watermelon.png': watermelon,
+};
+
 const DailyBestSells = () => {
   const [activeFilter, setActiveFilter] = useState('Featured');
 const scrollContainer = useRef<HTMLDivElement | null>(null);
@@ -78,7 +102,7 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
                     id={String(product.id)}
                     title={product.name}
                     price={product.discountedPrice}
-                    image={`/src/assets/products/${product.image}`}
+                    image={imageMap[product.image]}
                     type={product.type}
                     rating={product.rating}
                     seller={product.seller}

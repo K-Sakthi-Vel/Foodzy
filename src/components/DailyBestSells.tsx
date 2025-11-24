@@ -110,7 +110,7 @@ const scrollContainer = useRef<HTMLDivElement | null>(null);
                     tag={product.tag}
                     showSeller={false}
                     cardHeight="h-full"
-                    fullWidthButton={false}
+                    fullWidthButton={true}
                   />
                 </div>
               ))}

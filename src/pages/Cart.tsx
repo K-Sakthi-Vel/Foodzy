@@ -63,10 +63,6 @@ export default function CartPage() {
   const deliveryCharges = 80.00;
   const navigate = useNavigate()
 
-  console.log('items', 
-                      items
-                      )
-
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     const storedOtpVerified = localStorage.getItem('otpVerified');

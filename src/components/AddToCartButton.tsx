@@ -8,7 +8,6 @@ type Props = { item: CartItem; fullWidth?: boolean };
 export default function AddToCartButton({ item, fullWidth }: Props) {
   const dispatch = useDispatch();
   const onAdd = () => {
-    console.log('on add', item)
     dispatch(addItem(item));
   };
   return (

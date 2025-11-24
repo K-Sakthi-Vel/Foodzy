@@ -1,25 +1,25 @@
 import products from '../data/products.json';
 import PopularProductCard from './PopularProductCard';
 import apple from '../assets/products/apple.png';
-import coconut from '../assets/products/coconut-flakes.jpg';
+import coconut from '../assets/products/coconutFlakes.jpg';
 import coffee from '../assets/products/coffee.jpg';
 import latte from '../assets/products/latte.jpg';
 import lemon from '../assets/products/lemon.png';
 import macadamia from '../assets/products/macadamia.png';
 import moisturer from '../assets/products/moisturer.jpg';
-import peanut from '../assets/products/peanut-butter.jpg';
+import peanut from '../assets/products/peanutButter.jpg';
 import pistachio from '../assets/products/pistachio.jpg';
 import watermelon from '../assets/products/watermelon.png';
 
 const imageMap: { [key: string]: string } = {
   'apple.png': apple,
-  'coconut-flakes.jpg': coconut,
+  'coconutFlakes.jpg': coconut,
   'coffee.jpg': coffee,
   'latte.jpg': latte,
   'lemon.png': lemon,
   'macadamia.png': macadamia,
   'moisturer.jpg': moisturer,
-  'peanut-butter.jpg': peanut,
+  'peanutButter.jpg': peanut,
   'pistachio.jpg': pistachio,
   'watermelon.png': watermelon,
 };

@@ -9,7 +9,6 @@ export default function AddToCartButton({ item }: Props) {
   const dispatch = useDispatch();
   const onAdd = () => {
     dispatch(addItem(item));
-    alert('Added to cart');
   };
   return (
     <button

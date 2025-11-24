@@ -1,10 +1,11 @@
 import React from 'react';
 import dealsData from '../data/dealsOfTheDay.json';
 import Cart from '../assets/add-cart.png';
-import dotd1 from '../assets/deals_of_the_day/dotd1.png';
-import dotd2 from '../assets/deals_of_the_day/dotd2.png';
-import dotd3 from '../assets/deals_of_the_day/dotd3.png';
-import dotd4 from '../assets/deals_of_the_day/dotd4.png';
+import AddToCartButton from './AddToCartButton';
+import dotd1 from '../assets/products/dotd1.png';
+import dotd2 from '../assets/products/dotd2.png';
+import dotd3 from '../assets/products/dotd3.png';
+import dotd4 from '../assets/products/dotd4.png';
 
 const imageMap: { [key: string]: string } = {
   'dotd1.png': dotd1,
@@ -53,9 +54,15 @@ const DealsOfTheDay: React.FC = () => {
                     <span className="text-xl font-bold text-green-500">${deal.price.toFixed(2)}</span>
                     <span className="text-gray-400 line-through ml-2">${deal.original_price.toFixed(2)}</span>
                   </div>
-                  <button className="flex items-center justify-center gap-1 cursor-pointer bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-600 transition-colors">
-                    <img src={Cart} alt='cart' className='h-[14px] w-[14px]'/>Add
-                  </button>
+                  <AddToCartButton
+                    item={{
+                      id: String(deal.id),
+                      name: deal.title,
+                      price: deal.price,
+                      qty: 1,
+                      image: deal.image.split('/').pop(),
+                    }}
+                  />
                 </div>
               </div>
             </div>

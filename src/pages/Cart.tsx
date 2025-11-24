@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import apple from '../assets/products/apple.png';
-import coconut from '../assets/products/coconut-flakes.jpg';
+import coconut from '../assets/products/coconutFlakes.jpg';
 import coffee from '../assets/products/coffee.jpg';
 import latte from '../assets/products/latte.jpg';
 import lemon from '../assets/products/lemon.png';
 import macadamia from '../assets/products/macadamia.png';
 import moisturer from '../assets/products/moisturer.jpg';
-import peanut from '../assets/products/peanut-butter.jpg';
+import peanut from '../assets/products/peanutButter.jpg';
 import pistachio from '../assets/products/pistachio.jpg';
 import watermelon from '../assets/products/watermelon.png';
+import dotd1 from '../assets/products/dotd1.png';
+import dotd2 from '../assets/products/dotd2.png';
+import dotd3 from '../assets/products/dotd3.png';
+import dotd4 from '../assets/products/dotd4.png';
 
 const imageMap: { [key: string]: string } = {
   'apple.png': apple,
-  'coconut-flakes.jpg': coconut,
+  'coconutFlakes.jpg': coconut,
   'coffee.jpg': coffee,
   'latte.jpg': latte,
   'lemon.png': lemon,
   'macadamia.png': macadamia,
   'moisturer.jpg': moisturer,
-  'peanut-butter.jpg': peanut,
+  'peanutButter.jpg': peanut,
   'pistachio.jpg': pistachio,
   'watermelon.png': watermelon,
+  'dotd1.png': dotd1,
+  'dotd2.png': dotd2,
+  'dotd3.png': dotd3,
+  'dotd4.png': dotd4,
 };
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store/store';
@@ -55,6 +63,11 @@ export default function CartPage() {
   const dispatch = useDispatch<AppDispatch>();
   const deliveryCharges = 80.00;
   const navigate = useNavigate()
+
+  console.log('items', 
+                      items[0].image.split('/').pop()
+                      .replace(/-\w+(\.\w+)$/i, '$1')
+                      )
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -99,7 +112,6 @@ export default function CartPage() {
         localStorage.setItem('otpVerified', 'true');
         localStorage.setItem('user', JSON.stringify({ id: verifiedUser.id, email: verifiedUser.email }));
       } else {
-        alert('Verification successful, but user data is incomplete. Please try again or contact support.');
         localStorage.removeItem('otpVerified');
         localStorage.removeItem('user');
         dispatch(setOtpVerifiedState(false));
@@ -122,12 +134,10 @@ export default function CartPage() {
 
   const handlePlaceOrder = async () => {
     if (!otpVerified) {
-      alert('Please verify your email with OTP before placing the order.');
       return;
     }
 
     if (!user || !user.id) {
-      alert('User not logged in or user ID is missing.');
       return;
     }
 
@@ -148,7 +158,7 @@ export default function CartPage() {
       setIsModalOpen(true);
       dispatch(clearCart());
     } else {
-      alert('Failed to place order: ' + (result.payload as string || 'Unknown error'));
+      console.log('Failed to place order: ' + (result.payload as string || 'Unknown error'));
     }
   };
 

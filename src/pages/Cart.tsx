@@ -36,7 +36,6 @@ import { updateQty, removeItem, clearCart } from '../store/slices/cartSlice';
 import { sendOtp, verifyOtp, setOtpVerifiedState, setUser } from '../store/slices/authSlice';
 import { createOrder } from '../store/slices/cartSlice';
 import paymentCards from '../assets/payment-cards.png';
-import { api } from '../api/client';
 import OrderPlacedModal from '../components/OrderPlacedModal';
 import { useNavigate } from 'react-router-dom';
 
@@ -65,8 +64,7 @@ export default function CartPage() {
   const navigate = useNavigate()
 
   console.log('items', 
-                      items[0].image.split('/').pop()
-                      .replace(/-\w+(\.\w+)$/i, '$1')
+                      items
                       )
 
   useEffect(() => {

@@ -51,10 +51,11 @@ export default function TopHeader() {
   };
 
   return (
-    <div className="bg-white h-auto md:h-[86px] w-full flex items-center justify-center header-bottom-border p-4 md:p-0">
-      <div className="container w-full md:w-[1296px] mx-auto flex flex-col md:flex-row items-center justify-between">
-        {/* Logo Section */}
-        <div className="flex items-center justify-between w-full md:w-auto">
+    <div className="bg-white h-auto py-4 w-full flex items-center justify-center header-bottom-border px-4">
+      <div className="container w-full md:max-w-7xl mx-auto flex flex-wrap items-center justify-between">
+        {/* Top row for Logo and Icons on mobile, full flex-row on md+ */}
+        <div className="flex items-center justify-between w-full md:w-auto md:flex-grow-0">
+          {/* Logo Section */}
           <Link to="/">
             <div className="flex items-center">
               <img className='h-[60px] w-[60px] md:h-[82px] md:w-[82px]' src={Logo} alt='logo' />
@@ -64,12 +65,32 @@ export default function TopHeader() {
               </div>
             </div>
           </Link>
-          <div className="md:hidden">
+          {/* Account, Wishlist, Cart Icons/Links for mobile (visible on small/medium, hidden on large) */}
+          <div className="flex items-center space-x-4 text-[#000000] md:hidden">
+            <Link to="/account" className="flex items-center">
+              <UserIcon className="w-5 h-5" />
+            </Link>
+            <Link to="/wishlist" className="flex items-center relative">
+              <HeartIcon className="w-5 h-5" />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {wishlistCount}
+                </span>
+              )}
+            </Link>
+            <Link to="/cart" className="flex items-center relative">
+              <ShoppingCartIcon className="w-5 h-5" />
+              {cartCount > 0 && (
+                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 
         {/* Search Bar Section */}
-        <div className="hidden md:flex flex-col w-full md:w-[600px] mt-4 md:mt-0 relative" ref={searchResultsRef}>
+        <div className="flex flex-col w-full md:w-auto md:flex-grow mt-4 md:mt-0 md:mx-4 relative" ref={searchResultsRef}>
           <div className="flex items-stretch w-full border border-gray-300 rounded-md overflow-hidden">
             <input
               type="text"
@@ -78,11 +99,11 @@ export default function TopHeader() {
               value={searchTerm}
               onChange={handleSearchChange}
             />
-            <div className="relative border-l border-gray-300">
+            <div className="relative border-l border-gray-300 hidden md:block"> {/* Hide on small, show on medium+ */}
             <select
               className="
                 px-4 py-[12px] bg-white text-gray-800
-                focus:outline-none text-[13px] w-full 
+                focus:outline-none text-[13px] w-full
                 pr-8
                 appearance-none"
               >
@@ -122,14 +143,14 @@ export default function TopHeader() {
           )}
         </div>
 
-        {/* Account, Wishlist, Cart Icons/Links */}
-        <div className="flex items-center space-x-4 md:space-x-6 text-[#000000] mt-4 md:mt-0">
+        {/* Account, Wishlist, Cart Icons/Links for desktop (hidden on small/medium, visible on large) */}
+        <div className="hidden md:flex items-center space-x-4 md:space-x-6 text-[#000000] md:flex-grow-0">
           <Link to="/account" className="flex items-center hover:text-gray-900">
-            <UserIcon className="w-5 h-5 md:mr-1" />
+            <UserIcon className="w-5 h-5 mr-1" />
             <span className="hidden md:inline text-[15px]" style={{ fontFamily: 'Poppins' }}>Account</span>
           </Link>
           <Link to="/wishlist" className="flex items-center relative hover:text-gray-900">
-            <HeartIcon className="w-5 h-5 md:mr-1" />
+            <HeartIcon className="w-5 h-5 mr-1" />
             <span className="hidden md:inline text-[15px]" style={{ fontFamily: 'Poppins' }}>Wishlist</span>
             {wishlistCount > 0 && (
               <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
@@ -138,7 +159,7 @@ export default function TopHeader() {
             )}
           </Link>
           <Link to="/cart" className="flex items-center relative hover:text-gray-900">
-            <ShoppingCartIcon className="w-5 h-5 md:mr-1" />
+            <ShoppingCartIcon className="w-5 h-5 mr-1" />
             <span className="hidden md:inline text-[15px]" style={{ fontFamily: 'Poppins' }}>Cart</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">

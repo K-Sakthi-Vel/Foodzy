@@ -35,13 +35,13 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ backgroundColor: '#F7F7F8' }} className="relative flex items-end justify-center h-[513px] border-t border-[#E9E9E9] pt-20 mt-20">
-      <img src={image1} alt="Foodzy" className="absolute bottom-5 right-50 h-[60px] w-[120px]" />
-      <img src={image2} alt="Foodzy" className="absolute top-[-24px] right-50 h-[70px] w-[70px]" />
-      <img src={image3} alt="Foodzy" className="absolute top-[200px] left-[-10px] h-[60px] w-[60px]" />
-      <div className="container w-[1320px] relative px-4 h-full">
-        <div className="grid grid-cols-12 gap-10">
-          <div className="w-[400px] col-span-12 lg:col-span-4">
+    <footer style={{ backgroundColor: '#F7F7F8' }} className="relative flex flex-col items-center justify-end border-t border-[#E9E9E9] pt-20 mt-20 md:pt-20">
+      <img src={image1} alt="Foodzy" className="absolute bottom-5 right-50 h-[60px] w-[120px] hidden md:block" />
+      <img src={image2} alt="Foodzy" className="absolute top-[-24px] right-50 h-[70px] w-[70px] hidden md:block" />
+      <img src={image3} alt="Foodzy" className="absolute top-[200px] left-[-10px] h-[60px] w-[60px] hidden md:block" />
+      <div className="container max-w-screen-xl mx-auto px-4">
+        <div className="grid grid-cols-12 md:grid-cols-12 gap-y-8 md:gap-y-0 gap-x-4 lg:gap-x-10">
+          <div className="col-span-12 md:col-span-12 lg:col-span-4 md:w-auto">
             <div className="mb-1">
               <a href="#" className="flex items-center">
                 <img src={logo} alt="Foodzy" className="h-12 mr-1" />
@@ -51,13 +51,13 @@ export default function Footer() {
                 </div>
               </a>
             </div>
-            <p className="text-[#7A7A7A] text-[14px] ml-2 mb-6" style={{fontFamily:'Poppins'}}>
+            <p className="text-[#7A7A7A] text-[14px] ml-2 mb-6 break-words" style={{fontFamily:'Poppins'}}>
               FoodTrove is the biggest market of grocery products. Get your daily needs from our store.
             </p>
             <ul className="space-y-4 text-gray-600 text-[14px] text-[#777777]">
               <li className="flex items-start">
                 <MapPin className="text-red-500 mr-3 mt-1 h-5 w-5 flex-shrink-0" />
-                <span>51 Green St. Huntington ohaio beach ontario, NY 11746 KY 4783, USA.</span>
+                <span className="break-words">51 Green St. Huntington ohaio beach ontario, NY 11746 KY 4783, USA.</span>
               </li>
               <li className="flex items-center">
                 <Mail className="text-red-500 mr-3 h-5 w-5 flex-shrink-0" />
@@ -70,7 +70,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-6 lg:col-span-2">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6" style={{fontFamily:'Arial'}}>Company</h3>
             <ul className="space-y-4 text-[#777777] text-[14px]" style={{fontFamily:'Poppins'}}>
               <li><a href="#" className="hover:text-red-500">About Us</a></li>
@@ -82,7 +82,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-6 lg:col-span-2">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6"  style={{fontFamily:'Arial'}}>Category</h3>
             <ul className="space-y-4 text-[#777777] text-[14px]" style={{fontFamily:'Poppins'}}>
               <li><a href="#" className="hover:text-red-500">Dairy & Bakery</a></li>
@@ -94,7 +94,7 @@ export default function Footer() {
             </ul>
           </div>
           
-          <div className="col-span-12 lg:col-span-4">
+          <div className="col-span-12 md:col-span-12 lg:col-span-4">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6"  style={{fontFamily:'Arial'}}>Subscribe Our Newsletter</h3>
             <div className="relative mb-6">
               <input 
@@ -131,9 +131,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 w-full border-t border-gray-200 mt-12 py-6 text-center text-gray-600"  style={{fontFamily:'Poppins'}}>
-          © 2025 <a href="#" className="text-red-500 font-semibold">foodzy</a>. All rights reserved.
-        </div>
+      </div>
+      <div className="w-full border-t border-gray-200 mt-12 py-6 text-center text-gray-600"  style={{fontFamily:'Poppins'}}>
+        © 2025 <a href="#" className="text-red-500 font-semibold">foodzy</a>. All rights reserved.
       </div>
     </footer>
   );

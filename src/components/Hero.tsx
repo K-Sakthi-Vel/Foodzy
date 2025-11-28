@@ -7,7 +7,7 @@ import Img4 from '../assets/img4.png';
 import Send from '../assets/send.png';
 import axios from 'axios';
 import { useState } from 'react';
-
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const Hero = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -17,7 +17,7 @@ const Hero = () => {
     setLoading(true);
     setMessage('');
     try {
-      const response = await axios.post('http://localhost:5000/api/subscribe', { email });
+      const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
       setMessage(response.data.message);
       setEmail('');
     } catch (error: any) {

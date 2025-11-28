@@ -12,8 +12,7 @@ import gallery5 from '../../assets/gallery5.jpg';
 import image1 from '../../assets/footer-image1.png';
 import image2 from '../../assets/footer-image2.png';
 import image3 from '../../assets/footer-image3.png';
-
-
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -24,7 +23,7 @@ export default function Footer() {
     setLoading(true);
     setMessage('');
     try {
-      const response = await axios.post('http://localhost:5000/api/subscribe', { email });
+      const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
       setMessage(response.data.message);
       setEmail('');
     } catch (error: any) {

@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../../store/store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserIcon, HeartIcon, ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Logo from '../../assets/logo.png';
 import productsData from '../../data/products.json'; // Import product data
 export default function TopHeader() {
+  const navigate = useNavigate();
   const cartCount = useSelector((s: RootState) => s.cart.items.length);
   const wishlistCount = useSelector((s: RootState) => s.wishlist.items.length);
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,11 +44,10 @@ export default function TopHeader() {
     }
   };
 
-  const handleProductClick = (event) => {
-    event.preventDefault(); // Prevent navigation
-    // Optionally, clear search results or do something else
-    // setSearchResults([]);
-    // setSearchTerm('');
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
+    setSearchResults([]);
+    setSearchTerm('');
   };
 
   return (
@@ -102,7 +102,7 @@ export default function TopHeader() {
                 </svg>
               </div>
             </div>
-            <button className="bg-red-500 text-white px-4 py-[10px] flex items-center justify-center border-l border-gray-300">
+            <button className="bg-red-500 cursor-pointer text-white px-4 py-[10px] flex items-center justify-center border-l border-gray-300">
               <MagnifyingGlassIcon className="w-5 h-5 mr-1" />
             </button>
           </div>
@@ -112,7 +112,7 @@ export default function TopHeader() {
                 <div
                   key={product.id}
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
-                  onClick={handleProductClick}
+                  onClick={() => handleProductClick(product.id)}
                 >
                   <img src={`/src/assets/products/${product.image}`} alt={product.name} className="w-8 h-8 object-cover mr-2" />
                   <span className='text-black text-sm'>{product.name}</span>

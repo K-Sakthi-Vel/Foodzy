@@ -121,10 +121,10 @@ export default function Footer() {
               </p>
             )}
             <div className="flex space-x-2 mb-6 mt-4"> {/* Added mt-4 for spacing */}
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Facebook size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Twitter size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Dribbble size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Instagram size={16} /></a>
+                <a href="https://www.facebook.com/KLSakthi.333/" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Facebook size={16} /></a>
+                <a href="https://x.com/klsakthi333" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Twitter size={16} /></a>
+                <a href="https://dribbble.com/SAKTHI333" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Dribbble size={16} /></a>
+                <a href="https://www.instagram.com/haha___sakthi/" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Instagram size={16} /></a>
             </div>
             <div className="flex space-x-2">
                 <img src={gallery1} alt="gallery" className="w-16 h-16 rounded-md object-cover" />

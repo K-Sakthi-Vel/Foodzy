@@ -5,8 +5,31 @@ import Img2 from '../assets/img2.png';
 import Img3 from '../assets/img3.png';
 import Img4 from '../assets/img4.png';
 import Send from '../assets/send.png';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Hero = () => {
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setMessage('');
+    try {
+      const response = await axios.post('http://localhost:5000/api/subscribe', { email });
+      setMessage(response.data.message);
+      setEmail('');
+    } catch (error: any) {
+      setMessage(error.response?.data?.message || 'Subscription failed. Please try again.');
+    } finally {
+      setLoading(false);
+      setTimeout(() => {
+        setMessage('');
+      }, 3000);
+    }
+  };
+
   return (
     <div
       className="relative w-full h-auto md:h-[851px] bg-[#F0F0F0] overflow-hidden flex items-center justify-center py-20 md:py-0"
@@ -37,13 +60,23 @@ const Hero = () => {
                 type="email"
                 placeholder="Your email address"
                 className="flex-1 outline-none ml-3 text-[15px] text-gray-600 w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <button className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
-              Subscribe
+            <button
+              className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? 'Subscribing...' : 'Subscribe'}
             </button>
           </div>
-
+          {message && (
+            <p className={`mt-4 text-center md:text-left ${message.includes('success') ? 'text-green-500' : 'text-red-500'}`}>
+              {message}
+            </p>
+          )}
         </div>
 
         <img className="hidden md:block h-[485px] w-[690px] absolute bottom-2 right-[-30px] rotate-2" src={Leaf} alt="leaf" />

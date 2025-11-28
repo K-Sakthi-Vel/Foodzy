@@ -10,7 +10,7 @@ export default function Layout({ children }: Props) {
     <div className=" flex flex-col">
       <Navbar />
       <TopHeader />
-      <main className="">{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );

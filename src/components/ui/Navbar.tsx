@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import { PhoneIcon } from '@heroicons/react/24/outline';
+import Dropdown from './Dropdown';
 import Menu from '../../assets/menu.png'
 export default function Navbar() {
   return (
@@ -19,21 +20,48 @@ export default function Navbar() {
           <Link to="/" className="text-gray-700 hover:text-gray-900">
             Home
           </Link>
-          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
-            Category <span className="ml-1 text-md"><ChevronDownIcon className="w-3 h-3 mr-1" /></span>
-          </Link>
-          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
-            Products <span className="ml-1 text-xs"><ChevronDownIcon className="w-3 h-3 mr-1" /></span>
-          </Link>
-          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
-            Pages <span className="ml-1 text-xs"><ChevronDownIcon className="w-3 h-3 mr-1" /></span>
-          </Link>
-          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
-            Blog <span className="ml-1 text-xs"><ChevronDownIcon className="w-3 h-3 mr-1" /></span>
-          </Link>
-          <Link to="/" className="text-gray-700 hover:text-gray-900 flex items-center">
-            Elements <span className="ml-1 text-xs"><ChevronDownIcon className="w-3 h-3 mr-1" /></span>
-          </Link>
+          <Dropdown
+            title="Category"
+            items={[
+              { name: 'Fruits & Vegetables', path: '' },
+              { name: 'Breakfast & Dairy', path: '' },
+              { name: 'Meat & Seafood', path: '' },
+              { name: 'Breads & Bakery', path: '' },
+            ]}
+          />
+          <Dropdown
+            title="Products"
+            items={[
+              { name: 'Product Grid', path: '' },
+              { name: 'Product List', path: '' },
+              { name: 'Product Detail', path: '' },
+            ]}
+          />
+          <Dropdown
+            title="Pages"
+            items={[
+              { name: 'About Us', path: '' },
+              { name: 'Contact Us', path: '' },
+              { name: 'FAQs', path: '' },
+              { name: 'Privacy Policy', path: '' },
+            ]}
+          />
+          <Dropdown
+            title="Blog"
+            items={[
+              { name: 'Blog Grid', path: '' },
+              { name: 'Blog List', path: '' },
+              { name: 'Blog Detail', path: '' },
+            ]}
+          />
+          <Dropdown
+            title="Elements"
+            items={[
+              { name: 'Typography', path: '' },
+              { name: 'Buttons', path: '' },
+              { name: 'Forms', path: '' },
+            ]}
+          />
         </nav>
 
         {/* Search Icon and Phone Number */}

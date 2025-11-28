@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaHeart } from 'react-icons/fa';
 import dealsData from '../data/dealsOfTheDay.json';
 import Cart from '../assets/add-cart.png';
 import AddToCartButton from './AddToCartButton';
@@ -6,6 +8,8 @@ import dotd1 from '../assets/products/dotd1.png';
 import dotd2 from '../assets/products/dotd2.png';
 import dotd3 from '../assets/products/dotd3.png';
 import dotd4 from '../assets/products/dotd4.png';
+import { addItemToWishlist, removeItemFromWishlist } from '../store/slices/wishlistSlice';
+import { RootState } from '../store/store';
 
 const imageMap: { [key: string]: string } = {
   'dotd1.png': dotd1,
@@ -15,6 +19,24 @@ const imageMap: { [key: string]: string } = {
 };
 
 const DealsOfTheDay: React.FC = () => {
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
+
+  const handleWishlistClick = (deal: any) => {
+    const item = {
+      id: String(deal.id),
+      name: deal.title,
+      price: deal.price,
+      qty: 1,
+      image: deal.image.split('/').pop(),
+    };
+    if (wishlistItems.some((i) => i.id === item.id)) {
+      dispatch(removeItemFromWishlist(item.id));
+    } else {
+      dispatch(addItemToWishlist(item));
+    }
+  };
+
   return (
     <section className="w-full container mx-auto mt-10 px-4">
       <div>
@@ -29,6 +51,13 @@ const DealsOfTheDay: React.FC = () => {
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
           {dealsData.map((deal) => (
             <div key={deal.id} className="w-full h-[462.55px] overflow-hidden relative">
+              <button
+                onClick={() => handleWishlistClick(deal)}
+                className="absolute top-2 right-2 p-2 rounded-full bg-white shadow-md z-10 cursor-pointer"
+                aria-label="Add to wishlist"
+              >
+                <FaHeart className={wishlistItems.some((i) => i.id === String(deal.id)) ? 'text-red-500' : 'text-gray-300'} />
+              </button>
               <img
                 src={imageMap[deal.image]}
                 alt={deal.title}

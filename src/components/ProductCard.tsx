@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaHeart } from 'react-icons/fa';
 import AddToCartButton from './AddToCartButton';
+import { addItemToWishlist, removeItemFromWishlist } from '../store/slices/wishlistSlice';
+import { RootState } from '../store/store';
 
 type Props = {
   id: string;
@@ -30,6 +34,25 @@ export default function ProductCard({
   cardHeight = 'h-full',
   fullWidthButton = false,
 }: Props) {
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
+  const isItemInWishlist = wishlistItems.some((item) => item.id === id);
+
+  const handleWishlistClick = () => {
+    const item = {
+      id,
+      name: title,
+      price,
+      qty: 1,
+      image: image ? image.split('/').pop() : undefined,
+    };
+    if (isItemInWishlist) {
+      dispatch(removeItemFromWishlist(id));
+    } else {
+      dispatch(addItemToWishlist(item));
+    }
+  };
+
   const getTagBgColor = () => {
     if (!tag) return '';
     if (tag.toLowerCase().includes('hot')) return 'bg-[#F74B81]';
@@ -49,6 +72,13 @@ export default function ProductCard({
           {tag}
         </div>
       )}
+      <button
+        onClick={handleWishlistClick}
+        className="absolute top-2 right-2 p-2 rounded-full bg-white shadow-md z-10 cursor-pointer"
+        aria-label="Add to wishlist"
+      >
+        <FaHeart className={isItemInWishlist ? 'text-red-500' : 'text-gray-300'} />
+      </button>
       <div className="w-full aspect-square mx-auto flex items-center justify-center">
         <Link to={`/product/${id}`} className="w-full h-full flex items-center justify-center">
           {image ? (

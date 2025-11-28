@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 1001,
     "name": "Fresh organic apple 1kg simla marming",
     "type": "fruit",
     "rating": 4.5,
@@ -21,7 +21,7 @@
     "sizes": ["500g", "1kg", "2kg"]
   },
   {
-    "id": 2,
+    "id": 1002,
     "name": "Gorton’s Beer Battered Fish Fillets with soft paper",
     "type": "beverage",
     "rating": 4.8,
@@ -42,7 +42,7 @@
     "sizes": ["250g", "500g", "1kg"]
   },
   {
-    "id": 3,
+    "id": 1003,
     "name": "Blue Diamond Almonds Lightly Salted Vegetables",
     "type": "snack",
     "rating": 4.2,
@@ -63,7 +63,7 @@
     "sizes": ["200g", "400g"]
   },
   {
-    "id": 4,
+    "id": 1004,
     "name": "Haagen-Dazs Caramel Cone Ice Cream Ketchup",
     "type": "beverage",
     "rating": 4.9,
@@ -84,7 +84,7 @@
     "sizes": ["300ml", "500ml"]
   },
   {
-    "id": 5,
+    "id": 1005,
     "name": "Fresh organic villa farm lomon 500gm pack",
     "type": "fruit",
     "rating": 4.3,
@@ -105,7 +105,7 @@
     "sizes": ["500g", "1kg"]
   },
   {
-    "id": 6,
+    "id": 1006,
     "name": "Best snakes with hazel nut pack 200gm",
     "type": "snack",
     "rating": 4.7,
@@ -126,7 +126,7 @@
     "sizes": ["200g", "500g"]
   },
   {
-    "id": 7,
+    "id": 1007,
     "name": "Encore Seafoods Stuffed Alaskan Salmon",
     "type": "personal care",
     "rating": 4.6,
@@ -147,7 +147,7 @@
     "sizes": ["150ml", "300ml"]
   },
   {
-    "id": 8,
+    "id": 1008,
     "name": "Chobani Complete Vanilla Greek Yogurt",
     "type": "pantry",
     "rating": 4.8,
@@ -168,7 +168,7 @@
     "sizes": ["500g", "1kg"]
   },
   {
-    "id": 9,
+    "id": 1009,
     "name": "Canada Dry Ginger Ale – 2 L Bottle - 200ml - 400g",
     "type": "snack",
     "rating": 4.9,
@@ -189,7 +189,7 @@
     "sizes": ["200g", "400g", "800g"]
   },
   {
-    "id": 10,
+    "id": 1010,
     "name": "Organic fresh venila farm watermelon 5kg",
     "type": "fruit",
     "rating": 4.7,

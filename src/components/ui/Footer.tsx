@@ -1,6 +1,10 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
-import { MapPin, Mail, Phone, Send, Facebook, Twitter, Instagram, Dribbble } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, Facebook, Twitter, Instagram, Dribbble, Loader2 } from 'lucide-react';
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import gallery1 from '../../assets/gallery1.jpg';
 import gallery2 from '../../assets/gallery2.jpg';
@@ -10,18 +14,34 @@ import gallery5 from '../../assets/gallery5.jpg';
 import image1 from '../../assets/footer-image1.png';
 import image2 from '../../assets/footer-image2.png';
 import image3 from '../../assets/footer-image3.png';
-
-
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
+      toast.success(response.data.message);
+      setEmail('');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Subscription failed. Please try again.');
+      setEmail(''); // Clear email on error too
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <footer style={{ backgroundColor: '#F7F7F8' }} className="relative flex items-end justify-center h-[513px] border-t border-[#E9E9E9] pt-20 mt-20">
-      <img src={image1} alt="Foodzy" className="absolute bottom-5 right-50 h-[60px] w-[120px]" />
-      <img src={image2} alt="Foodzy" className="absolute top-[-24px] right-50 h-[70px] w-[70px]" />
-      <img src={image3} alt="Foodzy" className="absolute top-[200px] left-[-10px] h-[60px] w-[60px]" />
-      <div className="container w-[1320px] relative px-4 h-full">
-        <div className="grid grid-cols-12 gap-10">
-          <div className="w-[400px] col-span-12 lg:col-span-4">
+    <footer style={{ backgroundColor: '#F7F7F8' }} className="relative flex flex-col items-center justify-end border-t border-[#E9E9E9] pt-20 mt-20 md:pt-20">
+      <img src={image1} alt="Foodzy" className="absolute bottom-5 right-50 h-[60px] w-[120px] hidden md:block" />
+      <img src={image2} alt="Foodzy" className="absolute top-[-24px] right-50 h-[70px] w-[70px] hidden md:block" />
+      <img src={image3} alt="Foodzy" className="absolute top-[200px] left-[-10px] h-[60px] w-[60px] hidden md:block" />
+      <div className="container max-w-screen-xl mx-auto px-4">
+        <div className="grid grid-cols-12 md:grid-cols-12 gap-y-8 md:gap-y-0 gap-x-4 lg:gap-x-10">
+          <div className="col-span-12 md:col-span-12 lg:col-span-4 md:w-auto">
             <div className="mb-1">
               <a href="#" className="flex items-center">
                 <img src={logo} alt="Foodzy" className="h-12 mr-1" />
@@ -31,13 +51,13 @@ export default function Footer() {
                 </div>
               </a>
             </div>
-            <p className="text-[#7A7A7A] text-[14px] ml-2 mb-6" style={{fontFamily:'Poppins'}}>
+            <p className="text-[#7A7A7A] text-[14px] ml-2 mb-6 break-words" style={{fontFamily:'Poppins'}}>
               FoodTrove is the biggest market of grocery products. Get your daily needs from our store.
             </p>
             <ul className="space-y-4 text-gray-600 text-[14px] text-[#777777]">
               <li className="flex items-start">
                 <MapPin className="text-red-500 mr-3 mt-1 h-5 w-5 flex-shrink-0" />
-                <span>51 Green St. Huntington ohaio beach ontario, NY 11746 KY 4783, USA.</span>
+                <span className="break-words">51 Green St. Huntington ohaio beach ontario, NY 11746 KY 4783, USA.</span>
               </li>
               <li className="flex items-center">
                 <Mail className="text-red-500 mr-3 h-5 w-5 flex-shrink-0" />
@@ -50,7 +70,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-6 lg:col-span-2">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6" style={{fontFamily:'Arial'}}>Company</h3>
             <ul className="space-y-4 text-[#777777] text-[14px]" style={{fontFamily:'Poppins'}}>
               <li><a href="#" className="hover:text-red-500">About Us</a></li>
@@ -62,7 +82,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-6 lg:col-span-2">
+          <div className="col-span-6 md:col-span-3 lg:col-span-2">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6"  style={{fontFamily:'Arial'}}>Category</h3>
             <ul className="space-y-4 text-[#777777] text-[14px]" style={{fontFamily:'Poppins'}}>
               <li><a href="#" className="hover:text-red-500">Dairy & Bakery</a></li>
@@ -74,23 +94,33 @@ export default function Footer() {
             </ul>
           </div>
           
-          <div className="col-span-12 lg:col-span-4">
+          <div className="col-span-12 md:col-span-12 lg:col-span-4">
             <h3 className="text-[18px] font-bold text-[#000000] mb-6"  style={{fontFamily:'Arial'}}>Subscribe Our Newsletter</h3>
             <div className="relative mb-6">
               <input 
-                type="email" 
-                placeholder="Search here..."
+                type="email"
+                placeholder="Your email address"
                 className="w-full bg-white text-black border border-gray-300 rounded-lg py-3 pl-4 pr-12 focus:outline-none focus:border-red-500"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
-              <button className="absolute inset-y-0 right-0 flex items-center pr-4">
-                <Send className="h-5 w-5 text-gray-500" />
+              <button
+                className="absolute inset-y-0 right-0 flex items-center pr-4 cursor-pointer"
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? (
+                  <Loader2 className="h-5 w-5 text-gray-500 animate-spin" />
+                ) : (
+                  <Send className="h-5 w-5 text-gray-500" />
+                )}
               </button>
             </div>
-            <div className="flex space-x-2 mb-6">
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Facebook size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Twitter size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Dribbble size={16} /></a>
-                <a href="#" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Instagram size={16} /></a>
+            <div className="flex space-x-2 mb-6 mt-4"> {/* Added mt-4 for spacing */}
+                <a href="https://www.facebook.com/KLSakthi.333/" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Facebook size={16} /></a>
+                <a href="https://x.com/klsakthi333" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Twitter size={16} /></a>
+                <a href="https://dribbble.com/SAKTHI333" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Dribbble size={16} /></a>
+                <a href="https://www.instagram.com/haha___sakthi/" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Instagram size={16} /></a>
             </div>
             <div className="flex space-x-2">
                 <img src={gallery1} alt="gallery" className="w-16 h-16 rounded-md object-cover" />
@@ -101,9 +131,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 w-full border-t border-gray-200 mt-12 py-6 text-center text-gray-600"  style={{fontFamily:'Poppins'}}>
-          © 2025 <a href="#" className="text-red-500 font-semibold">foodzy</a>. All rights reserved.
-        </div>
+      </div>
+      <div className="w-full border-t border-gray-200 mt-12 py-6 text-center text-gray-600"  style={{fontFamily:'Poppins'}}>
+        © 2025 <a href="#" className="text-red-500 font-semibold">foodzy</a>. All rights reserved.
       </div>
     </footer>
   );

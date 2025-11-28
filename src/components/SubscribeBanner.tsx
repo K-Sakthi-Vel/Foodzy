@@ -2,7 +2,30 @@ import React from 'react';
 import subscribeBanner from '../assets/subscribe-banner.png';
 import personImage from '../assets/person-image-subscribe-section.png';
 import Send from '../assets/send.png';
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const SubscribeBanner = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSellerSubscribe = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE}/api/subscribe-seller`, { email });
+      toast.success(response.data.message);
+      setEmail('');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Subscription failed. Please try again.');
+      setEmail(''); // Clear email on error too
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className='w-full container mx-auto mt-10 px-4'>
       <div
@@ -24,10 +47,16 @@ const SubscribeBanner = () => {
                 type="email"
                 placeholder="Your email address"
                 className="flex-1 outline-none ml-3 text-[15px] text-gray-600 w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <button className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
-              Subscribe
+            <button
+              className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium"
+              onClick={handleSellerSubscribe}
+              disabled={loading}
+            >
+              {loading ? 'Subscribing...' : 'Subscribe'}
             </button>
           </div>
         </div>
@@ -38,7 +67,6 @@ const SubscribeBanner = () => {
         />
       </div>
     </section>
-
   );
 };
 

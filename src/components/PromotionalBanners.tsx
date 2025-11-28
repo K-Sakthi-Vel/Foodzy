@@ -20,7 +20,7 @@ const PromotionalBanners = () => {
                         >
                             Everyday fresh & <br /> Clean with Our<br /> Products
                         </h2>
-                        <button className='flex items-center gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
+                        <button className='cursor-pointer flex items-center hover:bg-[#D8372C] transition hover:translate-x-2 gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
                             Shop Now
                             <ArrowRightIcon className='h-4 w-4 font-bold' />
                         </button>
@@ -37,7 +37,7 @@ const PromotionalBanners = () => {
                         >
                             Make your Breakfast <br /> Healthy and Easy
                         </h2>
-                        <button className='flex items-center gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
+                        <button className='cursor-pointer flex items-center hover:bg-[#D8372C] transition hover:translate-x-2  gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
                             Shop Now
                             <ArrowRightIcon className='h-4 w-4 font-bold' />
                         </button>
@@ -54,7 +54,7 @@ const PromotionalBanners = () => {
                         >
                             The best Organic <br /> Products Online
                         </h2>
-                        <button className='flex items-center gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
+                        <button className='cursor-pointer flex items-center hover:bg-[#D8372C] transition hover:translate-x-2  gap-2 pl-3 pr-3 h-[32px] mt-5 bg-orange-600 rounded text-white text-[12px]'>
                             Shop Now
                             <ArrowRightIcon className='h-4 w-4 font-bold' />
                         </button>

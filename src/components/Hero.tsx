@@ -5,8 +5,29 @@ import Img2 from '../assets/img2.png';
 import Img3 from '../assets/img3.png';
 import Img4 from '../assets/img4.png';
 import Send from '../assets/send.png';
+import axios from 'axios';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const Hero = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
+      toast.success(response.data.message);
+      setEmail('');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Subscription failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div
       className="relative w-full h-auto md:h-[851px] bg-[#F0F0F0] overflow-hidden flex items-center justify-center py-20 md:py-0"
@@ -37,13 +58,18 @@ const Hero = () => {
                 type="email"
                 placeholder="Your email address"
                 className="flex-1 outline-none ml-3 text-[15px] text-gray-600 w-full"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <button className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium">
-              Subscribe
+            <button
+              className="w-full mt-2 sm:mt-0 sm:w-auto h-12 sm:h-[64px] bg-[#F53E32] hover:bg-[#D8372C] cursor-pointer transition text-white px-8 py-2 rounded-full font-medium"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? 'Subscribing...' : 'Subscribe'}
             </button>
           </div>
-
         </div>
 
         <img className="hidden md:block h-[485px] w-[690px] absolute bottom-2 right-[-30px] rotate-2" src={Leaf} alt="leaf" />

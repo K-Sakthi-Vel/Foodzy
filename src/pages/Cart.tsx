@@ -46,6 +46,7 @@ import { createOrder } from '../store/slices/cartSlice';
 import paymentCards from '../assets/payment-cards.png';
 import OrderPlacedModal from '../components/OrderPlacedModal';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 
 export default function CartPage() {
@@ -93,9 +94,20 @@ export default function CartPage() {
         localStorage.removeItem('otpVerified');
         dispatch(setOtpVerifiedState(false));
         setEmail('');
+        toast.error('Failed to restore verification from storage.');
       }
     }
   }, [dispatch]);
+
+  // Effect for handling OTP sending results
+  useEffect(() => {
+    if (otpSent && !error) {
+      toast.success('OTP sent to your email!');
+    } else if (error && !otpSent) {
+      toast.error(error);
+    }
+  }, [otpSent, error]);
+
 
   const handleSendOtp = () => {
     if (validateEmail(email)) {
@@ -103,6 +115,7 @@ export default function CartPage() {
       setEmailError('');
     } else {
       setEmailError('Please enter a valid email address.');
+      toast.error('Please enter a valid email address.');
     }
   };
 
@@ -113,11 +126,16 @@ export default function CartPage() {
       if (verifiedUser && verifiedUser.id && verifiedUser.email) {
         localStorage.setItem('otpVerified', 'true');
         localStorage.setItem('user', JSON.stringify({ id: verifiedUser.id, email: verifiedUser.email }));
+        toast.success('OTP verified successfully!');
       } else {
         localStorage.removeItem('otpVerified');
         localStorage.removeItem('user');
         dispatch(setOtpVerifiedState(false));
+        toast.error('OTP verification failed. User data missing.');
       }
+    } else if (verifyOtp.rejected.match(result)) {
+      toast.error(result.payload as string || 'OTP verification failed.');
+      setOtp(''); // Clear OTP on failure
     }
   };
 
@@ -136,10 +154,21 @@ export default function CartPage() {
 
   const handlePlaceOrder = async () => {
     if (!otpVerified) {
+      toast.error('Please verify your email with OTP before placing the order.');
       return;
     }
 
     if (!user || !user.id) {
+      toast.error('User not authenticated. Please log in or verify your email.');
+      return;
+    }
+
+    // Validate billing details
+    const requiredFields = ['firstName', 'lastName', 'address', 'city', 'country'];
+    const missingFields = requiredFields.filter(field => !billingDetails[field as keyof typeof billingDetails]);
+
+    if (missingFields.length > 0) {
+      toast.error(`Please fill in all required billing details: ${missingFields.map(f => f.charAt(0).toUpperCase() + f.slice(1)).join(', ')}.`);
       return;
     }
 
@@ -157,10 +186,11 @@ export default function CartPage() {
     const result = await dispatch(createOrder(orderDetails));
 
     if (createOrder.fulfilled.match(result)) {
+      toast.success('Order placed successfully!');
       setIsModalOpen(true);
       dispatch(clearCart());
-    } else {
-      console.log('Failed to place order: ' + (result.payload as string || 'Unknown error'));
+    } else if (createOrder.rejected.match(result)) {
+      toast.error(result.payload as string || 'Failed to place order. Please try again.');
     }
   };
 
@@ -199,7 +229,7 @@ export default function CartPage() {
             <div className="py-5">
               {items.map((item) => (
                 <div key={item.id} className="flex items-center justify-between mt-4">
-                  <div className="flex items-center">
+                  <div className="flex items-center w-[70%]">
                     <img src={imageMap[
                       item.image.split('/').pop()
                       .replace(/-\w+(\.\w+)$/i, '$1')
@@ -216,7 +246,7 @@ export default function CartPage() {
                       </div>
                     </div>
                   </div>
-                  <div className="flex w-[40%] flex-col justify-center items-center gap-1">
+                  <div className="flex w-[30%] flex-col justify-center items-center gap-1">
                     <div className='flex w-full justify-between'>
                       <button onClick={() => dispatch(updateQty({ id: item.id, qty: item.qty - 1 }))} disabled={item.qty <= 1} className="px-2 py-1 bg-gray-200 rounded">-</button>
                       <span className="px-4 pt-1">{item.qty}</span>

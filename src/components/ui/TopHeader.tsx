@@ -5,6 +5,46 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserIcon, HeartIcon, ShoppingCartIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Logo from '../../assets/logo.png';
 import productsData from '../../data/products.json'; // Import product data
+
+import apple from '../../assets/products/apple.png';
+import coconut from '../../assets/products/coconutFlakes.jpg';
+import coffee from '../../assets/products/coffee.jpg';
+import latte from '../../assets/products/latte.jpg';
+import lemon from '../../assets/products/lemon.png';
+import macadamia from '../../assets/products/macadamia.png';
+import moisturer from '../../assets/products/moisturer.jpg';
+import peanut from '../../assets/products/peanutButter.jpg';
+import pistachio from '../../assets/products/pistachio.jpg';
+import watermelon from '../../assets/products/watermelon.png';
+import dotd1 from '../../assets/products/dotd1.png';
+import dotd2 from '../../assets/products/dotd2.png';
+import dotd3 from '../../assets/products/dotd3.png';
+import dotd4 from '../../assets/products/dotd4.png';
+import dotd5 from '../../assets/products/dotd5.png';
+import dotd6 from '../../assets/products/dotd6.png';
+import dotd7 from '../../assets/products/dotd7.png';
+import dotd8 from '../../assets/products/dotd8.png';
+const imageMap: { [key: string]: string } = {
+  'apple.png': apple,
+  'coconutFlakes.jpg': coconut,
+  'coffee.jpg': coffee,
+  'latte.jpg': latte,
+  'lemon.png': lemon,
+  'macadamia.png': macadamia,
+  'moisturer.jpg': moisturer,
+  'peanutButter.jpg': peanut,
+  'pistachio.jpg': pistachio,
+  'watermelon.png': watermelon,
+  'dotd1.png': dotd1,
+  'dotd2.png': dotd2,
+  'dotd3.png': dotd3,
+  'dotd4.png': dotd4,
+  'dotd5.png': dotd5,
+  'dotd6.png': dotd6,
+  'dotd7.png': dotd7,
+  'dotd8.png': dotd8,
+};
+
 export default function TopHeader() {
   const navigate = useNavigate();
   const cartCount = useSelector((s: RootState) => s.cart.items.length);
@@ -135,7 +175,7 @@ export default function TopHeader() {
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center"
                   onClick={() => handleProductClick(product.id)}
                 >
-                  <img src={`/src/assets/products/${product.image}`} alt={product.name} className="w-8 h-8 object-cover mr-2" />
+                  <img src={imageMap[product.image]} alt={product.name} className="w-8 h-8 object-cover mr-2" />
                   <span className='text-black text-sm'>{product.name}</span>
                 </div>
               ))}

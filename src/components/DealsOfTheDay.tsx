@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaHeart } from 'react-icons/fa';
 import dealsData from '../data/dealsOfTheDay.json';
@@ -8,6 +8,10 @@ import dotd1 from '../assets/products/dotd1.png';
 import dotd2 from '../assets/products/dotd2.png';
 import dotd3 from '../assets/products/dotd3.png';
 import dotd4 from '../assets/products/dotd4.png';
+import dotd5 from '../assets/products/dotd5.png';
+import dotd6 from '../assets/products/dotd6.png';
+import dotd7 from '../assets/products/dotd7.png';
+import dotd8 from '../assets/products/dotd8.png';
 import { addItemToWishlist, removeItemFromWishlist } from '../store/slices/wishlistSlice';
 import { RootState } from '../store/store';
 
@@ -16,9 +20,14 @@ const imageMap: { [key: string]: string } = {
   'dotd2.png': dotd2,
   'dotd3.png': dotd3,
   'dotd4.png': dotd4,
+  'dotd5.png': dotd5,
+  'dotd6.png': dotd6,
+  'dotd7.png': dotd7,
+  'dotd8.png': dotd8,
 };
 
 const DealsOfTheDay: React.FC = () => {
+  const [showAllDeals, setShowAllDeals] = useState(false);
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
@@ -28,7 +37,7 @@ const DealsOfTheDay: React.FC = () => {
       name: deal.title,
       price: deal.price,
       qty: 1,
-      image: deal.image.split('/').pop(),
+      image: imageMap[deal.image],
     };
     if (wishlistItems.some((i) => i.id === item.id)) {
       dispatch(removeItemFromWishlist(item.id));
@@ -44,12 +53,15 @@ const DealsOfTheDay: React.FC = () => {
           <h2 className="text-2xl md:text-[32px] font-bold text-black text-center md:text-left" style={{ fontFamily: 'Quicksand' }}>
             Deals Of The Day
           </h2>
-          <span className="text-lg text-gray-600 hover:text-green-500 cursor-pointer mt-2 md:mt-0">
-            All Deals {'>'}
-          </span>
+          <button
+            onClick={() => setShowAllDeals(!showAllDeals)}
+            className="text-lg text-gray-600 hover:text-green-500 cursor-pointer mt-2 md:mt-0"
+          >
+            {showAllDeals ? 'Show Less' : 'All Deals'} {'>'}
+          </button>
         </div>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
-          {dealsData.map((deal) => (
+          {dealsData.slice(0, showAllDeals ? dealsData.length : 4).map((deal) => (
             <div key={deal.id} className="w-full h-[462.55px] overflow-hidden relative">
               <button
                 onClick={() => handleWishlistClick(deal)}
@@ -89,7 +101,7 @@ const DealsOfTheDay: React.FC = () => {
                       name: deal.title,
                       price: deal.price,
                       qty: 1,
-                      image: deal.image.split('/').pop(),
+                      image: imageMap[deal.image],
                     }}
                   />
                 </div>

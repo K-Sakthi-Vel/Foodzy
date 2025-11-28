@@ -34,5 +34,41 @@
     "original_price": 16.8,
     "price": 15.85,
     "image": "dotd4.png"
+  },
+  {
+    "id": 5,
+    "title": "Fresh Organic Indian Guava",
+    "rating": 4.5,
+    "seller": "FoodYar",
+    "original_price": 18.00,
+    "price": 17.50,
+    "image": "dotd5.png"
+  },
+  {
+    "id": 6,
+    "title": "Organic Apple Flavor Juice",
+    "rating": 4.0,
+    "seller": "GreenFarm",
+    "original_price": 10.00,
+    "price": 9.20,
+    "image": "dotd6.png"
+  },
+  {
+    "id": 7,
+    "title": "Organic Strawberry & Blueberry",
+    "rating": 4.8,
+    "seller": "Farmers Market",
+    "original_price": 22.50,
+    "price": 21.00,
+    "image": "dotd7.png"
+  },
+  {
+    "id": 8,
+    "title": "Fresh Organic Mango",
+    "rating": 4.3,
+    "seller": "Harvest Basket",
+    "original_price": 25.00,
+    "price": 23.75,
+    "image": "dotd8.png"
   }
 ]

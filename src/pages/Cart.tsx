@@ -13,6 +13,10 @@ import dotd1 from '../assets/products/dotd1.png';
 import dotd2 from '../assets/products/dotd2.png';
 import dotd3 from '../assets/products/dotd3.png';
 import dotd4 from '../assets/products/dotd4.png';
+import dotd5 from '../assets/products/dotd5.png';
+import dotd6 from '../assets/products/dotd6.png';
+import dotd7 from '../assets/products/dotd7.png';
+import dotd8 from '../assets/products/dotd8.png';
 
 const imageMap: { [key: string]: string } = {
   'apple.png': apple,
@@ -29,6 +33,10 @@ const imageMap: { [key: string]: string } = {
   'dotd2.png': dotd2,
   'dotd3.png': dotd3,
   'dotd4.png': dotd4,
+  'dotd5.png': dotd5,
+  'dotd6.png': dotd6,
+  'dotd7.png': dotd7,
+  'dotd8.png': dotd8,
 };
 import { useSelector, useDispatch } from 'react-redux';
 import type { RootState, AppDispatch } from '../store/store';

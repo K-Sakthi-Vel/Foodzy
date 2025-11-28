@@ -1,8 +1,10 @@
 import React from 'react';
 import logo from '../../assets/logo.png';
-import { MapPin, Mail, Phone, Send, Facebook, Twitter, Instagram, Dribbble } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, Facebook, Twitter, Instagram, Dribbble, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import gallery1 from '../../assets/gallery1.jpg';
 import gallery2 from '../../assets/gallery2.jpg';
@@ -16,23 +18,19 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
-    setMessage('');
     try {
       const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
-      setMessage(response.data.message);
+      toast.success(response.data.message);
       setEmail('');
     } catch (error: any) {
-      setMessage(error.response?.data?.message || 'Subscription failed. Please try again.');
+      toast.error(error.response?.data?.message || 'Subscription failed. Please try again.');
+      setEmail(''); // Clear email on error too
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setMessage('');
-      }, 3000); // Hide message after 3 seconds
     }
   };
 
@@ -111,14 +109,13 @@ export default function Footer() {
                 onClick={handleSubmit}
                 disabled={loading}
               >
-                <Send className="h-5 w-5 text-gray-500" />
+                {loading ? (
+                  <Loader2 className="h-5 w-5 text-gray-500 animate-spin" />
+                ) : (
+                  <Send className="h-5 w-5 text-gray-500" />
+                )}
               </button>
             </div>
-            {message && (
-              <p className={`mt-2 text-center text-[14px] ${message.includes('success') ? 'text-green-500' : 'text-red-500'}`}>
-                {message}
-              </p>
-            )}
             <div className="flex space-x-2 mb-6 mt-4"> {/* Added mt-4 for spacing */}
                 <a href="https://www.facebook.com/KLSakthi.333/" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Facebook size={16} /></a>
                 <a href="https://x.com/klsakthi333" className="w-9 h-9 flex items-center justify-center border border-gray-300 rounded-md text-gray-600 hover:bg-red-500 hover:text-white"><Twitter size={16} /></a>

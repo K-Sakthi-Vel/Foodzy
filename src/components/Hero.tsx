@@ -7,26 +7,24 @@ import Img4 from '../assets/img4.png';
 import Send from '../assets/send.png';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 const Hero = () => {
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
-    setMessage('');
     try {
       const response = await axios.post(`${API_BASE}/api/subscribe`, { email });
-      setMessage(response.data.message);
+      toast.success(response.data.message);
       setEmail('');
     } catch (error: any) {
-      setMessage(error.response?.data?.message || 'Subscription failed. Please try again.');
+      toast.error(error.response?.data?.message || 'Subscription failed. Please try again.');
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setMessage('');
-      }, 3000);
     }
   };
 
@@ -72,11 +70,6 @@ const Hero = () => {
               {loading ? 'Subscribing...' : 'Subscribe'}
             </button>
           </div>
-          {message && (
-            <p className={`mt-4 text-center md:text-left ${message.includes('success') ? 'text-green-500' : 'text-red-500'}`}>
-              {message}
-            </p>
-          )}
         </div>
 
         <img className="hidden md:block h-[485px] w-[690px] absolute bottom-2 right-[-30px] rotate-2" src={Leaf} alt="leaf" />

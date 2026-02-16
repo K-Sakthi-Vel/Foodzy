@@ -91,7 +91,7 @@ export default function TopHeader() {
   };
 
   return (
-    <div className="bg-white h-auto py-4 w-full flex items-center justify-center header-bottom-border px-4">
+    <div className="bg-white h-auto py-4 mt-10 w-full flex items-center justify-center header-bottom-border px-4">
       <div className="container w-full md:max-w-7xl mx-auto flex flex-wrap items-center justify-between">
         {/* Top row for Logo and Icons on mobile, full flex-row on md+ */}
         <div className="flex items-center justify-between w-full md:w-auto md:flex-grow-0">

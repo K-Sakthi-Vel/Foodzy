@@ -38,7 +38,7 @@ const FilterOptions: React.FC = () => {
                 </div>
             </div>
             <h2 className="text-[16px] mt-6 mb-4 text-[#2B2B2D]" style={{fontFamily:'Poppins'}}>Filter By Price</h2>
-            <div className='border border-t-1 border-t-[#E9E9E9] pt-5'>
+            <div className='border-t-1 border-t-[#E9E9E9] pt-5'>
                 <input type="range" min="20" max="250" className="w-full accent-[#F53E32]" />
                 <div className="flex justify-between mt-2">
                     <span className='text-[#7A7A7A] text-[15px]' style={{fontFamily:'Poppins'}}><span className='text-black font-bold'>Price:</span> $20 - $250</span>

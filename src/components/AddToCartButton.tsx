@@ -13,7 +13,7 @@ export default function AddToCartButton({ item, fullWidth }: Props) {
   return (
     <button
       onClick={onAdd}
-      className={`flex items-center justify-center gap-2 ${fullWidth ? 'w-full' : 'w-[84.91px]'} h-[36px] bg-[rgb(245, 62, 50)] hover:bg-[rgb(216, 55, 44)] cursor-pointer  text-white rounded-[4px] text-sm`}
+      className={`flex items-center justify-center gap-2 ${fullWidth ? 'w-full' : 'w-[84.91px]'} h-[36px] bg-[rgb(245,62,50)] hover:bg-[rgb(216,55,44)] cursor-pointer  text-white rounded-[4px] text-sm`}
     >
       <img src={Cart} alt='cart' className='h-[14px] w-[14px]'/> Add
     </button>
